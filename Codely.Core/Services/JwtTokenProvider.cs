@@ -19,9 +19,11 @@ public interface IJwtTokenProvider
 public sealed class JwtTokenProvider : IJwtTokenProvider
 {
     private readonly JwtSettings _jwtSettings;
+    private readonly ISystemTime _systemTime;
     
-    public JwtTokenProvider(IOptions<JwtSettings> options)
+    public JwtTokenProvider(IOptions<JwtSettings> options, ISystemTime systemTime)
     {
+        _systemTime = systemTime;
         _jwtSettings = options.Value;
     }
     
@@ -41,7 +43,7 @@ public sealed class JwtTokenProvider : IJwtTokenProvider
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,
             claims: claims,
-            expires: DateTime.UtcNow.AddHours(_jwtSettings.TokenLifetimeMinutes),
+            expires:_systemTime.Now.AddHours(_jwtSettings.TokenLifetimeMinutes),
             signingCredentials: signingCredentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
@@ -53,7 +55,7 @@ public sealed class JwtTokenProvider : IJwtTokenProvider
         {
             Token = Guid.NewGuid().ToString(),
             UserId = userId,
-            ValidUntil = DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenLifetimeDays)
+            ValidUntil = _systemTime.Now.AddDays(_jwtSettings.RefreshTokenLifetimeDays)
         };
     }
 }

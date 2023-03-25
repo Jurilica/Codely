@@ -1,5 +1,4 @@
 ﻿using Codely.Core.Data;
-using Codely.Core.Data.Entities;
 using Codely.Core.Helpers;
 using Codely.Core.Services;
 using Codely.Core.Types;
@@ -12,11 +11,13 @@ public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, R
 {
     private readonly CodelyContext _context;
     private readonly IJwtTokenProvider _jwtTokenProvider;
+    private readonly ISystemTime _systemTime;
 
-    public RefreshTokenCommand(CodelyContext context, IJwtTokenProvider jwtTokenProvider)
+    public RefreshTokenCommand(CodelyContext context, IJwtTokenProvider jwtTokenProvider, ISystemTime systemTime)
     {
         _context = context;
         _jwtTokenProvider = jwtTokenProvider;
+        _systemTime = systemTime;
     }
     
     public async Task<RefreshTokenResponse> Handle(RefreshTokenRequest request, CancellationToken cancellationToken)
@@ -41,7 +42,7 @@ public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, R
            throw new CodelyException("Refresh token not found");
        }
 
-       if (refreshTokenData.RefreshToken.ValidUntil < DateTime.UtcNow)
+       if (refreshTokenData.RefreshToken.ValidUntil < _systemTime.Now)
        {
            throw new CodelyException("Refresh token expired");
        }
@@ -51,7 +52,7 @@ public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, R
            throw new CodelyException("Refresh token already used");
        }
 
-       refreshTokenData.RefreshToken.UsedOn = DateTime.UtcNow;
+       refreshTokenData.RefreshToken.UsedOn = _systemTime.Now;
 
        var newRefreshToken = _jwtTokenProvider.CreateRefreshToken(refreshTokenData.UserId);
 

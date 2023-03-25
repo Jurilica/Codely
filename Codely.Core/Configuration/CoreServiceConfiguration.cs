@@ -15,10 +15,12 @@ public static class CoreServiceConfiguration
         service.AddDbContext<CodelyContext>(x => x
             .UseNpgsql(configuration.GetConnectionString(nameof(CodelyContext)))
             .UseSnakeCaseNamingConvention());
-
-        service.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
-
+        
         var jwtSettingsSection = configuration.GetSection(nameof(JwtSettings));
         service.Configure<JwtSettings>(jwtSettingsSection);
+        
+        service.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
+        
+        service.AddSingleton<ISystemTime,SystemTime>();
     }
 }
