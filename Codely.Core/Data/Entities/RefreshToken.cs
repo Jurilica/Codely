@@ -1,4 +1,6 @@
-﻿namespace Codely.Core.Data.Entities;
+﻿using Codely.Core.Data.Entities.Base;
+
+namespace Codely.Core.Data.Entities;
 
 public class RefreshToken : BaseEntity
 {

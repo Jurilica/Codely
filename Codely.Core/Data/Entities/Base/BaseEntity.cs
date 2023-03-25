@@ -1,4 +1,4 @@
-﻿namespace Codely.Core.Data.Entities;
+﻿namespace Codely.Core.Data.Entities.Base;
 
 public abstract class BaseEntity
 {
