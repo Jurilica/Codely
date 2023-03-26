@@ -2,7 +2,7 @@
 
 namespace Codely.Core.Data.Entities;
 
-public class User : BaseEntity
+public sealed class User : BaseEntity
 {
     public string Username { get; set; } = string.Empty;
 

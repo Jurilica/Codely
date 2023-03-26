@@ -2,7 +2,7 @@
 
 namespace Codely.Core.Data.Entities;
 
-public class RefreshToken : BaseEntity
+public sealed class RefreshToken : BaseEntity
 {
     public string Token { get; set; } = string.Empty;
 
