@@ -1,26 +1,31 @@
 ﻿using Codely.Core.Configuration.Settings;
 using Codely.Core.Data;
+using Codely.Core.Gateways;
 using Codely.Core.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Refit;
 
 namespace Codely.Core.Configuration;
 
 public static class CoreServiceConfiguration
 {
-    public static void AddCoreServices(this IServiceCollection service, IConfiguration configuration)
+    public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
     {
-        service.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(CoreServiceConfiguration).Assembly));
-        service.AddDbContext<CodelyContext>(x => x
+        services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(CoreServiceConfiguration).Assembly));
+        services.AddDbContext<CodelyContext>(x => x
             .UseNpgsql(configuration.GetConnectionString(nameof(CodelyContext)))
             .UseSnakeCaseNamingConvention());
         
         var jwtSettingsSection = configuration.GetSection(nameof(JwtSettings));
-        service.Configure<JwtSettings>(jwtSettingsSection);
+        services.Configure<JwtSettings>(jwtSettingsSection);
+
+        services.AddRefitClient<ICodeTranslationApi>()
+            .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://emkc.org/"));
         
-        service.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
+        services.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
         
-        service.AddSingleton<ISystemTime,SystemTime>();
+        services.AddSingleton<ISystemTime,SystemTime>();
     }
 }

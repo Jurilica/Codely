@@ -12,7 +12,7 @@ public class CodelyContext : DbContext
     
     public DbSet<Example> Examples => Set<Example>();
     
-    public DbSet<Question> Questions => Set<Question>();
+    public DbSet<Problem> Problems => Set<Problem>();
 
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     
