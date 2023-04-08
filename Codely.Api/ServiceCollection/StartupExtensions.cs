@@ -48,7 +48,7 @@ public static class StartupExtensions
         services.Configure<JwtSettings>(jwtSection);
 
         // get instances of settings to setup TokenValidationParameters
-        var jwtSettings = jwtSection.Get<JwtSettings>();
+        var jwtSettings = jwtSection.Get<JwtSettings>()!;
 
         services.AddAuthentication(x =>
             {

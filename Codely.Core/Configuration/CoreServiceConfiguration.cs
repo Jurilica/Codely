@@ -21,8 +21,8 @@ public static class CoreServiceConfiguration
         var jwtSettingsSection = configuration.GetSection(nameof(JwtSettings));
         services.Configure<JwtSettings>(jwtSettingsSection);
 
-        services.AddRefitClient<ICodeTranslationApi>()
-            .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://emkc.org/"));
+        services.AddRefitClient<ICodeTranslationClient>()
+            .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://emkc.org"));
         
         services.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
         

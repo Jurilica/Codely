@@ -9,6 +9,9 @@ public sealed class TranslateCodeResponse
     
     [JsonPropertyName("version")]
     public required string Version { get; init; }
+    
+    [JsonPropertyName("run")]
+    public required TranslatedCodeResult Result { get; set; }
 }
 
 public sealed class TranslatedCodeResult

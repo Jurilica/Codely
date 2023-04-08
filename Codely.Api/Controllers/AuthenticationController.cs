@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Codely.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("authentication")]
 [ApiController]
 public class AuthenticationController : ControllerBase
 {
@@ -17,21 +17,21 @@ public class AuthenticationController : ControllerBase
     }
     
     [AllowAnonymous]
-    [HttpPost("/register")]
+    [HttpPost("register")]
     public async Task<RegisterResponse> Register(RegisterRequest request)
     {
         return await _mediator.Send(request);
     }
     
     [AllowAnonymous]
-    [HttpPost("/login")]
+    [HttpPost("login")]
     public async Task<LoginResponse> Login(LoginRequest request)
     {
         return await _mediator.Send(request);
     }
     
     [AllowAnonymous]
-    [HttpPost("/refresh-token")]
+    [HttpPost("refresh-token")]
     public async Task<RefreshTokenResponse> RefreshToken(RefreshTokenRequest request)
     {
         return await _mediator.Send(request);

@@ -21,8 +21,4 @@
       <ProjectReference Include="..\Codely.Core\Codely.Core.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers" />
-    </ItemGroup>
-
 </Project>
