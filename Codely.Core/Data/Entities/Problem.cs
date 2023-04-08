@@ -2,7 +2,7 @@
 
 namespace Codely.Core.Data.Entities;
 
-public sealed class Question : BaseEntity
+public sealed class Problem : BaseEntity
 {
     public string Title { get; set; } = string.Empty;
 
