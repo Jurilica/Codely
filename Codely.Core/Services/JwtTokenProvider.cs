@@ -11,7 +11,7 @@ namespace Codely.Core.Services;
 
 public interface IJwtTokenProvider
 {
-    string Generate(int userId, string username, string email);
+    string Generate(int userId, string username, string email, Role role);
 
     RefreshToken CreateRefreshToken(int userId);
 }
@@ -27,13 +27,14 @@ public sealed class JwtTokenProvider : IJwtTokenProvider
         _jwtSettings = options.Value;
     }
     
-    public string Generate(int userId, string username, string email)
+    public string Generate(int userId, string username, string email, Role role)
     {
         var claims = new List<Claim>
         {
             new(UserClaimType.UserId, userId.ToString()),
             new(UserClaimType.Name, username),
-            new(UserClaimType.Email, email)
+            new(UserClaimType.Email, email),
+            new(UserClaimType.Role, role.ToString())
         };
         
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));

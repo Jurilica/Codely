@@ -16,9 +16,10 @@ public class CurrentUserResolver : ICurrentUserService
             throw new CodelyException(nameof(identity));
         }
 
-        Id = int.Parse(identity.FindFirst(UserClaimType.UserId)?.Value);
-        Username = identity.FindFirst(UserClaimType.Name)?.Value;
-        Email = identity.FindFirst(UserClaimType.Email)?.Value;
+        Id = int.Parse(identity.FindFirst(UserClaimType.UserId)?.Value!);
+        Username = identity.FindFirst(UserClaimType.Name)?.Value!;
+        Email = identity.FindFirst(UserClaimType.Email)?.Value!;
+        Role = Enum.Parse<Role>(identity.FindFirst(UserClaimType.Role)?.Value!);
     }
     
     public int Id { get; }
@@ -26,4 +27,6 @@ public class CurrentUserResolver : ICurrentUserService
     public string Username { get; }
 
     public string Email { get; }
+    
+    public Role Role { get; }
 }

@@ -2,6 +2,7 @@
 using Codely.Core.Helpers;
 using Codely.Core.Services;
 using Codely.Core.Types;
+using Codely.Core.Types.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +34,8 @@ public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, R
                    RefreshToken = x,
                    x.UserId,
                    x.User.Username,
-                   x.User.Email
+                   x.User.Email,
+                   x.User.Role
                })
            .FirstOrDefaultAsync(cancellationToken);
        
@@ -59,7 +61,7 @@ public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, R
        await _context.RefreshTokens.AddAsync(newRefreshToken, cancellationToken);
        await _context.SaveChangesAsync(cancellationToken);
 
-       var token = _jwtTokenProvider.Generate(refreshTokenData.UserId, refreshTokenData.Username, refreshTokenData.Email);
+       var token = _jwtTokenProvider.Generate(refreshTokenData.UserId, refreshTokenData.Username, refreshTokenData.Email, refreshTokenData.Role);
        
        return new RefreshTokenResponse
        {

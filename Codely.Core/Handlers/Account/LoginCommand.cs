@@ -40,7 +40,7 @@ public sealed class LoginCommand : IRequestHandler<LoginRequest, LoginResponse>
         await _context.RefreshTokens.AddAsync(refreshToken, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         
-        var token = _jwtTokenProvider.Generate(user.Id, user.Username, user.Email);
+        var token = _jwtTokenProvider.Generate(user.Id, user.Username, user.Email, user.Role);
         
         return new LoginResponse
         {

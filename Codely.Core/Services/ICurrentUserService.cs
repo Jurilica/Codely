@@ -1,4 +1,6 @@
-﻿namespace Codely.Core.Services;
+﻿using Codely.Core.Types.Enums;
+
+namespace Codely.Core.Services;
 
 public interface ICurrentUserService
 {
@@ -7,4 +9,6 @@ public interface ICurrentUserService
     public string Username { get; }
 
     public string Email { get; }
+    
+    public Role Role { get; }
 }

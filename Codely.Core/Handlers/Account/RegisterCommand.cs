@@ -2,6 +2,7 @@
 using Codely.Core.Data.Entities;
 using Codely.Core.Helpers;
 using Codely.Core.Services;
+using Codely.Core.Types.Enums;
 using MediatR;
 
 namespace Codely.Core.Handlers.Account;
@@ -28,7 +29,8 @@ public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterR
         {
             Email = request.Email,
             Username = request.Username,
-            PasswordHash = PasswordHasher.Hash(request.Password)
+            PasswordHash = PasswordHasher.Hash(request.Password),
+            Role = Role.User
         };
 
         await _context.Users.AddAsync(user, cancellationToken);
@@ -39,7 +41,7 @@ public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterR
         await _context.RefreshTokens.AddAsync(refreshToken, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         
-        var token = _jwtTokenProvider.Generate(user.Id, user.Username, user.Email);
+        var token = _jwtTokenProvider.Generate(user.Id, user.Username, user.Email, user.Role);
 
         return new RegisterResponse
         {
