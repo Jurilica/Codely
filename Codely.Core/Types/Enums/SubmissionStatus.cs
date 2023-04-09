@@ -3,7 +3,9 @@
 public enum SubmissionStatus
 {
     Created = 1,
-    Accepted = 2,
-    Error = 3,
-    WrongAnswer = 4
+    InternalError = 2,
+    CompilationError = 3,
+    ExecutionError = 4,
+    CorrectAnswer = 5,
+    WrongAnswer = 6
 }

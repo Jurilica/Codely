@@ -10,6 +10,6 @@ public sealed class Problem : BaseEntity
 
     public List<Example> Examples { get; init; } = new();
 
-    public List<TestCase> TestCases { get; set; } = new();
+    public List<TestCase> TestCases { get; init; } = new();
 }
     

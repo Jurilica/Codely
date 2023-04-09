@@ -20,6 +20,8 @@ public class CodelyContext : DbContext
     
     public DbSet<Submission> Submissions => Set<Submission>();
     
+    public DbSet<SubmissionTestCase> SubmissionTestCases => Set<SubmissionTestCase>();
+    
     public DbSet<TestCase> TestCases => Set<TestCase>();
     
     public DbSet<User> Users => Set<User>();
