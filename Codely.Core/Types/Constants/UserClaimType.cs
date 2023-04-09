@@ -1,4 +1,4 @@
-﻿namespace Codely.Core.Types.Enums;
+﻿namespace Codely.Core.Types.Constants;
 
 public static class UserClaimType
 {
