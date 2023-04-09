@@ -1,14 +1,11 @@
-using Codely.Api.Attributes;
-using Codely.Core.Handlers;
-using Codely.Core.Handlers.Account;
-using Codely.Core.Types.Enums;
+using Codely.Core.Handlers.User.Account;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Codely.Api.Controllers;
+namespace Codely.Api.Controllers.User;
 
-[Route("authentication")]
+[Route("user/authentication")]
 [ApiController]
 public class AuthenticationController : ControllerBase
 {

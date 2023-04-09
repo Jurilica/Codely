@@ -5,7 +5,7 @@ using Codely.Core.Types;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Codely.Core.Handlers.Account;
+namespace Codely.Core.Handlers.User.Account;
 
 public sealed class LoginCommand : IRequestHandler<LoginRequest, LoginResponse>
 {

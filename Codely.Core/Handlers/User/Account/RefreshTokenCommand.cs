@@ -2,11 +2,10 @@
 using Codely.Core.Helpers;
 using Codely.Core.Services;
 using Codely.Core.Types;
-using Codely.Core.Types.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Codely.Core.Handlers.Account;
+namespace Codely.Core.Handlers.User.Account;
 
 public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, RefreshTokenResponse>
 {

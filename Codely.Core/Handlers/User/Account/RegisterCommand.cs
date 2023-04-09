@@ -1,11 +1,10 @@
 ﻿using Codely.Core.Data;
-using Codely.Core.Data.Entities;
 using Codely.Core.Helpers;
 using Codely.Core.Services;
 using Codely.Core.Types.Enums;
 using MediatR;
 
-namespace Codely.Core.Handlers.Account;
+namespace Codely.Core.Handlers.User.Account;
 
 public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterResponse>
 {
@@ -25,7 +24,7 @@ public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterR
             .IsEmpty(request.Password, "Empty password")
             .IsToShort(request.Password, 5, "Password is to short");
         
-        var user = new User
+        var user = new Data.Entities.User
         {
             Email = request.Email,
             Username = request.Username,
