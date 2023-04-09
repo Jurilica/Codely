@@ -1,6 +1,6 @@
 ﻿namespace Codely.Core.Types.Enums;
 
-public enum Language
+public enum ProgrammingLanguage
 {
     CSharp = 1,
     C = 2,

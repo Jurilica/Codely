@@ -14,6 +14,8 @@ public class CodelyContext : DbContext
     
     public DbSet<Problem> Problems => Set<Problem>();
 
+    public DbSet<ProgrammingLanguageVersion> ProgrammingLanguageVersions => Set<ProgrammingLanguageVersion>();
+
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     
     public DbSet<Submission> Submissions => Set<Submission>();
