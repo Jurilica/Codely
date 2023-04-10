@@ -1,15 +1,11 @@
 ﻿using Codely.Core.Data;
-using Codely.Core.Data.Entities;
 using Codely.Core.Gateways;
-using Codely.Core.Gateways.Contracts;
 using Codely.Core.Helpers;
 using Codely.Core.Services;
 using Codely.Core.Types;
 using Codely.Core.Types.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Refit;
 
 namespace Codely.Core.Handlers.User.Submission;
 

@@ -17,7 +17,7 @@ public sealed class LoginCommand : IRequestHandler<LoginRequest, LoginResponse>
         _context = context;
         _jwtTokenProvider = jwtTokenProvider;
     }
-    
+
     public async Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
         Guard.Against
@@ -60,6 +60,6 @@ public sealed class LoginRequest : IRequest<LoginResponse>
 public sealed class LoginResponse
 {
     public string Token { get; init; } = string.Empty;
-
+    
     public string RefreshToken { get; init; } = string.Empty;
 }

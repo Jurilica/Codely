@@ -37,36 +37,36 @@ public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, R
                    x.User.Role
                })
            .FirstOrDefaultAsync(cancellationToken);
+
+        if (refreshTokenData is null)
+        {
+            throw new CodelyException("Refresh token not found");
+        }
+
+        if (refreshTokenData.RefreshToken.ValidUntil < _systemTime.Now)
+        {
+            throw new CodelyException("Refresh token expired");
+        }
+
+        if (refreshTokenData.RefreshToken.UsedOn.HasValue)
+        {
+            throw new CodelyException("Refresh token already used");
+        }
+
+        refreshTokenData.RefreshToken.UsedOn = _systemTime.Now;
+
+        var newRefreshToken = _jwtTokenProvider.CreateRefreshToken(refreshTokenData.UserId);
+
+        await _context.RefreshTokens.AddAsync(newRefreshToken, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+
+        var token = _jwtTokenProvider.Generate(refreshTokenData.UserId, refreshTokenData.Username, refreshTokenData.Email, refreshTokenData.Role);
        
-       if (refreshTokenData is null)
-       {
-           throw new CodelyException("Refresh token not found");
-       }
-
-       if (refreshTokenData.RefreshToken.ValidUntil < _systemTime.Now)
-       {
-           throw new CodelyException("Refresh token expired");
-       }
-
-       if (refreshTokenData.RefreshToken.UsedOn.HasValue)
-       {
-           throw new CodelyException("Refresh token already used");
-       }
-
-       refreshTokenData.RefreshToken.UsedOn = _systemTime.Now;
-
-       var newRefreshToken = _jwtTokenProvider.CreateRefreshToken(refreshTokenData.UserId);
-
-       await _context.RefreshTokens.AddAsync(newRefreshToken, cancellationToken);
-       await _context.SaveChangesAsync(cancellationToken);
-
-       var token = _jwtTokenProvider.Generate(refreshTokenData.UserId, refreshTokenData.Username, refreshTokenData.Email, refreshTokenData.Role);
-       
-       return new RefreshTokenResponse
-       {
-           Token = token,
-           RefreshToken = newRefreshToken.Token
-       };
+        return new RefreshTokenResponse
+        {
+            Token = token,
+            RefreshToken = newRefreshToken.Token
+        };
     }
 }
 
