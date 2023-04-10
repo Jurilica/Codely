@@ -35,12 +35,12 @@ public sealed class LoginCommand : IRequestHandler<LoginRequest, LoginResponse>
             throw new CodelyException("Wrong email or password");
         }
 
-        var refreshToken = _jwtTokenProvider.CreateRefreshToken(user.Id);
+        var refreshToken = _jwtTokenProvider.CreateRefreshToken(user!.Id);
 
         await _context.RefreshTokens.AddAsync(refreshToken, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         
-        var token = _jwtTokenProvider.Generate(user.Id, user.Username, user.Email, user.Role);
+        var token = _jwtTokenProvider.Generate(user!.Id, user!.Username, user!.Email, user!.Role);
         
         return new LoginResponse
         {

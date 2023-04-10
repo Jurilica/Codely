@@ -2,6 +2,8 @@
 using Codely.Core.Data;
 using Codely.Core.Gateways;
 using Codely.Core.Services;
+using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,5 +29,25 @@ public static class CoreServiceConfiguration
         services.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
         
         services.AddSingleton<ISystemTime,SystemTime>();
+    }
+    
+    public static void AddHangfire(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddHangfire(hangfireConfiguration => hangfireConfiguration
+            .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+            .UseSimpleAssemblyNameTypeSerializer()
+            .UseRecommendedSerializerSettings()
+            .UseFilter(
+                new AutomaticRetryAttribute
+                {
+                    Attempts = 0
+                })
+            .UsePostgreSqlStorage(
+                configuration.GetConnectionString("HangfireContext"),
+                new PostgreSqlStorageOptions
+                {
+                    PrepareSchemaIfNecessary = true,
+                    QueuePollInterval = TimeSpan.FromSeconds(1),
+                }));
     }
 }

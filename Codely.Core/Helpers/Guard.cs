@@ -15,7 +15,7 @@ public static class GuardExtensions
         return guard;
     }
 
-    public static Guard IsToShort(this Guard guard, [NotNull] string? value, int minLength, string message)
+    public static Guard IsToShort(this Guard guard, string value, int minLength, string message)
     {
         if (value.Length < minLength)
         {
