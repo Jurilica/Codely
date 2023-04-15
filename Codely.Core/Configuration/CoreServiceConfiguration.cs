@@ -27,6 +27,8 @@ public static class CoreServiceConfiguration
             .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://emkc.org"));
         
         services.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
+        services.AddTransient<ITestCaseService, TestCaseService>();
+        services.AddTransient<ITestCaseJob, TestCaseJob>();
         
         services.AddSingleton<ISystemTime,SystemTime>();
     }

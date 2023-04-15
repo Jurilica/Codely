@@ -12,14 +12,14 @@ namespace Codely.Core.Handlers.User.Submission;
 public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, SubmitAnswerResponse>
 {
     private readonly CodelyContext _context;
-    private readonly ICodeTranslationClient _codeTranslationClient;
     private readonly ICurrentUserService _currentUserService;
+    private readonly ITestCaseJob _testCaseJob;
 
-    public SubmitAnswerCommand(CodelyContext context, ICodeTranslationClient codeTranslationClient, ICurrentUserService currentUserService)
+    public SubmitAnswerCommand(CodelyContext context, ICurrentUserService currentUserService, ITestCaseJob testCaseJob)
     {
         _context = context;
-        _codeTranslationClient = codeTranslationClient;
         _currentUserService = currentUserService;
+        _testCaseJob = testCaseJob;
     }
     
     public async Task<SubmitAnswerResponse> Handle(SubmitAnswerRequest request, CancellationToken cancellationToken)
@@ -69,6 +69,8 @@ public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, S
         await _context.Submissions.AddAsync(submission, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 
+        _testCaseJob.ExecuteTestCases(submission.Id);
+        
         return new SubmitAnswerResponse();
     }
 }

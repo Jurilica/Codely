@@ -2,6 +2,7 @@
 
 public enum SubmissionTestCaseStatus
 {
-    Passed = 1,
-    Failed = 2
+    CorrectAnswer = 1,
+    WrongAnswer = 2,
+    Error = 3
 }
