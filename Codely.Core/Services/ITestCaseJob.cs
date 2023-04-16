@@ -11,6 +11,6 @@ public class TestCaseJob : ITestCaseJob
 {
     public void ExecuteTestCases(int submissionId)
     {
-        BackgroundJob.Enqueue<ITestCaseJob>(x => x.ExecuteTestCases(submissionId));
+        BackgroundJob.Enqueue<ITestCaseService>(x => x.ExecuteTestCases(submissionId));
     }
 }

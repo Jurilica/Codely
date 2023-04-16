@@ -3,8 +3,7 @@
 public enum SubmissionStatus
 {
     Created = 1,
-    Pending = 2,
-    Failed = 3,
-    Succeeded = 4,
-    InternalError = 5
+    Failed = 2,
+    Succeeded = 3,
+    InternalError = 4
 }
