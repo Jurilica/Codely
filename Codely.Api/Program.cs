@@ -1,10 +1,14 @@
+using System.Text.Json.Serialization;
 using Codely.Api.ServiceCollection;
 using Codely.Core.Configuration;
 using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwagger();
 

@@ -1,5 +1,4 @@
 ﻿using Codely.Core.Data;
-using Codely.Core.Gateways;
 using Codely.Core.Helpers;
 using Codely.Core.Services;
 using Codely.Core.Types;
