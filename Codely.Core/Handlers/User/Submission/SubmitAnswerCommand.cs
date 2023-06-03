@@ -26,20 +26,6 @@ public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, S
         Guard.Against
             .IsEmpty(request.Answer, "Answer is empty");
 
-        var problem = await _context.Problems
-            .Where(x => x.Id == request.ProblemId)
-            .Select(x =>
-                new
-                {
-                    TestCase = x.TestCases
-                })
-            .FirstOrDefaultAsync(cancellationToken);
-
-        if (problem is null)
-        {
-            throw new CodelyException("Coding problem not found");
-        }
-
         var programmingLanguageVersion = await _context.ProgrammingLanguageVersions
             .Where(x => x.ProgrammingLanguage == request.ProgrammingLanguage)
             .Select(x => 
