@@ -28,7 +28,7 @@ public static class CoreServiceConfiguration
         
         services.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
         services.AddTransient<ITestCaseService, TestCaseService>();
-        services.AddTransient<ITestCaseJob, TestCaseJob>();
+        services.AddTransient<ITestCaseJobs, TestCaseJobs>();
         
         services.AddSingleton<ISystemTime,SystemTime>();
     }

@@ -2,12 +2,12 @@
 
 namespace Codely.Core.Services;
 
-public interface ITestCaseJob
+public interface ITestCaseJobs
 {
     void ExecuteTestCases(int submissionId);
 }
 
-public class TestCaseJob : ITestCaseJob
+public class TestCaseJobs : ITestCaseJobs
 {
     public void ExecuteTestCases(int submissionId)
     {

@@ -12,13 +12,13 @@ public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, S
 {
     private readonly CodelyContext _context;
     private readonly ICurrentUserService _currentUserService;
-    private readonly ITestCaseJob _testCaseJob;
+    private readonly ITestCaseJobs _testCaseJobs;
 
-    public SubmitAnswerCommand(CodelyContext context, ICurrentUserService currentUserService, ITestCaseJob testCaseJob)
+    public SubmitAnswerCommand(CodelyContext context, ICurrentUserService currentUserService, ITestCaseJobs testCaseJobs)
     {
         _context = context;
         _currentUserService = currentUserService;
-        _testCaseJob = testCaseJob;
+        _testCaseJobs = testCaseJobs;
     }
     
     public async Task<SubmitAnswerResponse> Handle(SubmitAnswerRequest request, CancellationToken cancellationToken)
@@ -54,7 +54,7 @@ public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, S
         await _context.Submissions.AddAsync(submission, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 
-        _testCaseJob.ExecuteTestCases(submission.Id);
+        _testCaseJobs.ExecuteTestCases(submission.Id);
         
         return new SubmitAnswerResponse();
     }
