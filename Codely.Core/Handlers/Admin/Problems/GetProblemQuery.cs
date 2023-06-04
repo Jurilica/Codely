@@ -2,7 +2,6 @@
 
 public sealed class GetProblemQuery
 {
-    
 }
 
 public sealed class GetProblemRequest
@@ -10,5 +9,6 @@ public sealed class GetProblemRequest
     public int ProblemId { get; set; }
 }
 
-public sealed class GetProblemResponse{
+public sealed class GetProblemResponse
+{
 }

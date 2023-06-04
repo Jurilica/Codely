@@ -13,7 +13,7 @@ public sealed class CreateExampleCommand : IRequestHandler<CreateExampleRequest,
     {
         _context = context;
     }
-    
+
     public async Task<CreateExampleResponse> Handle(CreateExampleRequest request, CancellationToken cancellationToken)
     {
         Guard.Against
@@ -31,7 +31,7 @@ public sealed class CreateExampleCommand : IRequestHandler<CreateExampleRequest,
 
         _context.Examples.Add(example);
         await _context.SaveChangesAsync(cancellationToken);
-            
+
         return new CreateExampleResponse
         {
             ExampleId = example.Id
@@ -42,7 +42,7 @@ public sealed class CreateExampleCommand : IRequestHandler<CreateExampleRequest,
 public sealed class CreateExampleRequest : IRequest<CreateExampleResponse>
 {
     public int ProblemId { get; set; }
-    
+
     public string Input { get; set; } = string.Empty;
 
     public string Output { get; set; } = string.Empty;

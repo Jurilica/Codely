@@ -16,6 +16,7 @@ public sealed class ArchiveExampleCommand : IRequestHandler<ArchiveExampleReques
         _context = context;
         _systemTime = systemTime;
     }
+
     public async Task<ArchiveProblemResponse> Handle(ArchiveExampleRequest request, CancellationToken cancellationToken)
     {
         var example = await _context.Examples
@@ -24,7 +25,7 @@ public sealed class ArchiveExampleCommand : IRequestHandler<ArchiveExampleReques
 
         example.Archived = _systemTime.Now;
         await _context.SaveChangesAsync(cancellationToken);
-        
+
         return new ArchiveProblemResponse();
     }
 }

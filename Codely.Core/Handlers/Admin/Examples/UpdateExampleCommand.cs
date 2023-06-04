@@ -13,7 +13,7 @@ public sealed class UpdateExampleCommand : IRequestHandler<UpdateExampleRequest,
     {
         _context = context;
     }
-    
+
     public async Task<UpdateExampleResponse> Handle(UpdateExampleRequest request, CancellationToken cancellationToken)
     {
         Guard.Against
@@ -30,7 +30,7 @@ public sealed class UpdateExampleCommand : IRequestHandler<UpdateExampleRequest,
         example.Explanation = request.Explanation;
 
         await _context.SaveChangesAsync(cancellationToken);
-        
+
         return new UpdateExampleResponse();
     }
 }
@@ -38,7 +38,7 @@ public sealed class UpdateExampleCommand : IRequestHandler<UpdateExampleRequest,
 public sealed class UpdateExampleRequest : IRequest<UpdateExampleResponse>
 {
     public int ExampleId { get; set; }
-    
+
     public string Input { get; set; } = string.Empty;
 
     public string Output { get; set; } = string.Empty;

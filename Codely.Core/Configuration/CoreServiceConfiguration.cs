@@ -19,20 +19,20 @@ public static class CoreServiceConfiguration
         services.AddDbContext<CodelyContext>(x => x
             .UseNpgsql(configuration.GetConnectionString(nameof(CodelyContext)))
             .UseSnakeCaseNamingConvention());
-        
+
         var jwtSettingsSection = configuration.GetSection(nameof(JwtSettings));
         services.Configure<JwtSettings>(jwtSettingsSection);
 
         services.AddRefitClient<ICodeTranslationClient>()
             .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://emkc.org"));
-        
+
         services.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
         services.AddTransient<ITestCaseService, TestCaseService>();
         services.AddTransient<ITestCaseJobs, TestCaseJobs>();
-        
-        services.AddSingleton<ISystemTime,SystemTime>();
+
+        services.AddSingleton<ISystemTime, SystemTime>();
     }
-    
+
     public static void AddHangfire(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHangfire(hangfireConfiguration => hangfireConfiguration
@@ -49,7 +49,7 @@ public static class CoreServiceConfiguration
                 new PostgreSqlStorageOptions
                 {
                     PrepareSchemaIfNecessary = true,
-                    QueuePollInterval = TimeSpan.FromSeconds(1),
+                    QueuePollInterval = TimeSpan.FromSeconds(1)
                 }));
     }
 }

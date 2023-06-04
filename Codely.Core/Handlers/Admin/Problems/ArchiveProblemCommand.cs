@@ -1,7 +1,6 @@
 ﻿using Codely.Core.Data;
 using Codely.Core.Services;
 using MediatR;
-using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Codely.Core.Handlers.Admin.Problems;
@@ -16,7 +15,7 @@ public sealed class ArchiveProblemCommand : IRequestHandler<ArchiveProblemReques
         _context = context;
         _systemTime = systemTime;
     }
-    
+
     public async Task<ArchiveProblemResponse> Handle(ArchiveProblemRequest request, CancellationToken cancellationToken)
     {
         var problem = await _context.Problems
@@ -25,7 +24,7 @@ public sealed class ArchiveProblemCommand : IRequestHandler<ArchiveProblemReques
 
         problem.Archived = _systemTime.Now;
         await _context.SaveChangesAsync(cancellationToken);
-        
+
         return new ArchiveProblemResponse();
     }
 }

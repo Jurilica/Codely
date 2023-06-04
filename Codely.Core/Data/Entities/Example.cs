@@ -11,6 +11,6 @@ public sealed class Example : BaseEntity
     public string Explanation { get; set; } = string.Empty;
 
     public int ProblemId { get; set; }
-    
+
     public Problem Problem { get; set; }
 }

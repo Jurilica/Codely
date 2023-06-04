@@ -40,7 +40,7 @@ public static class StartupExtensions
             });
         });
     }
-    
+
     public static void AddTokenAuthConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
         // setup for injection as IOptions<JwtSettings>
@@ -71,7 +71,7 @@ public static class StartupExtensions
                 };
             });
     }
-    
+
     public static void AddUserClaimsResolver(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHttpContextAccessor();

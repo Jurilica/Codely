@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Codely.Core.Handlers.Admin.Problems;
 
-public sealed class GetProblemsQuery: IRequestHandler<GetProblemsRequest, GetProblemsResponse>
+public sealed class GetProblemsQuery : IRequestHandler<GetProblemsRequest, GetProblemsResponse>
 {
     private readonly CodelyContext _context;
 
@@ -11,7 +11,7 @@ public sealed class GetProblemsQuery: IRequestHandler<GetProblemsRequest, GetPro
     {
         _context = context;
     }
-    
+
     public async Task<GetProblemsResponse> Handle(GetProblemsRequest request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();

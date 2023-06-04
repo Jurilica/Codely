@@ -15,21 +15,21 @@ public class AuthenticationController : ControllerBase
     {
         _mediator = mediator;
     }
-    
+
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<RegisterResponse> Register(RegisterRequest request)
     {
         return await _mediator.Send(request);
     }
-    
+
     [AllowAnonymous]
     [HttpPost("login")]
     public async Task<LoginResponse> Login(LoginRequest request)
     {
         return await _mediator.Send(request);
     }
-    
+
     [AllowAnonymous]
     [HttpPost("refresh-token")]
     public async Task<RefreshTokenResponse> RefreshToken(RefreshTokenRequest request)
