@@ -12,5 +12,5 @@ public sealed class Example : BaseEntity
 
     public int ProblemId { get; set; }
 
-    public Problem Problem { get; set; }
+    public Problem Problem { get; set; } = null!;
 }
