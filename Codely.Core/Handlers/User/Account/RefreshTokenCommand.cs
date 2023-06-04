@@ -57,7 +57,7 @@ public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, R
 
         var newRefreshToken = _jwtTokenProvider.CreateRefreshToken(refreshTokenData.UserId);
 
-        await _context.RefreshTokens.AddAsync(newRefreshToken, cancellationToken);
+       _context.RefreshTokens.Add(newRefreshToken);
         await _context.SaveChangesAsync(cancellationToken);
 
         var token = _jwtTokenProvider.Generate(refreshTokenData.UserId, refreshTokenData.Username, refreshTokenData.Email, refreshTokenData.Role);

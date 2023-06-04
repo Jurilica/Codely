@@ -51,7 +51,7 @@ public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, S
             ProblemId = request.ProblemId
         };
 
-        await _context.Submissions.AddAsync(submission, cancellationToken);
+        _context.Submissions.Add(submission);
         await _context.SaveChangesAsync(cancellationToken);
 
         _testCaseJobs.ExecuteTestCases(submission.Id);

@@ -37,7 +37,7 @@ public sealed class LoginCommand : IRequestHandler<LoginRequest, LoginResponse>
 
         var refreshToken = _jwtTokenProvider.CreateRefreshToken(user!.Id);
 
-        await _context.RefreshTokens.AddAsync(refreshToken, cancellationToken);
+        _context.RefreshTokens.Add(refreshToken);
         await _context.SaveChangesAsync(cancellationToken);
         
         var token = _jwtTokenProvider.Generate(user!.Id, user!.Username, user!.Email, user!.Role);

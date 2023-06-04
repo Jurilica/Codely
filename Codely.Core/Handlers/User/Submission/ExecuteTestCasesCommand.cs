@@ -28,8 +28,8 @@ public sealed class ExecuteTestCasesCommand : IRequestHandler<ExecuteTestCasesRe
                 new
                 {
                     Submission = x,
-                    TestCases = x.Problem.TestCases,
-                    LanguageVersion = x.ProgrammingLanguageVersion
+                    x.Problem.TestCases,
+                    x.ProgrammingLanguageVersion
                 })
             .FirstOrDefaultAsync(cancellationToken);
 
@@ -49,8 +49,8 @@ public sealed class ExecuteTestCasesCommand : IRequestHandler<ExecuteTestCasesRe
             
             var codeTranslationRequest = new TranslateCodeRequest
             {
-                Language  = submissionData.LanguageVersion.Name,
-                Version = submissionData.LanguageVersion.Version,
+                Language  = submissionData.ProgrammingLanguageVersion.Name,
+                Version = submissionData.ProgrammingLanguageVersion.Version,
                 StandardInput = testCase.Input,
                 Files = new List<TranslateCodeFile>
                 {
@@ -84,7 +84,7 @@ public sealed class ExecuteTestCasesCommand : IRequestHandler<ExecuteTestCasesRe
                     allTestCasesPassed = false;
                 }
                 
-                await _context.SubmissionTestCases.AddAsync(submissionTestCase, cancellationToken);
+                _context.SubmissionTestCases.Add(submissionTestCase);
             }
             catch
             {

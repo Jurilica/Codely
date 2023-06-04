@@ -32,7 +32,7 @@ public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterR
             Role = Role.User
         };
 
-        await _context.Users.AddAsync(user, cancellationToken);
+        _context.Users.Add(user);
         await _context.SaveChangesAsync(cancellationToken);
 
         var refreshToken = _jwtTokenProvider.CreateRefreshToken(user.Id);
