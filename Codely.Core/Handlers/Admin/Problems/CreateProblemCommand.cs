@@ -43,7 +43,10 @@ public sealed class CreateProblemCommand : IRequestHandler<CreateProblemRequest,
         _context.Problems.Add(problem);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new CreateProblemResponse();
+        return new CreateProblemResponse
+        {
+            ProblemId = problem.Id
+        };
     }
 }
 
