@@ -25,7 +25,7 @@ public sealed class GetProblemsQuery : IRequestHandler<GetProblemsRequest, GetPr
             .Select(x => x.ProblemId)
             .ToListAsync(cancellationToken);
 
-        var problemsData = await _context.Problems
+        var problems = await _context.Problems
             .Where(x => x.Status == ProblemStatus.Published)
             .Select(x =>
                 new GetProblemsData
@@ -48,7 +48,7 @@ public sealed class GetProblemsQuery : IRequestHandler<GetProblemsRequest, GetPr
 
         return new GetProblemsResponse
         {
-            ProblemsData = problemsData
+            Problems= problems
         };
     }
 }
@@ -59,7 +59,7 @@ public sealed class GetProblemsRequest : IRequest<GetProblemsResponse>
 
 public sealed class GetProblemsResponse
 {
-    public List<GetProblemsData> ProblemsData { get; init; } = new();
+    public List<GetProblemsData> Problems { get; init; } = new();
 }
 
 public sealed class GetProblemsData
@@ -77,9 +77,9 @@ public sealed class GetProblemsData
 
 public sealed class ExampleData
 {
-    public string Input { get; set; } = string.Empty;
+    public string Input { get; init; } = string.Empty;
 
-    public string Output { get; set; } = string.Empty;
+    public string Output { get; init; } = string.Empty;
 
-    public string Explanation { get; set; } = string.Empty;
+    public string Explanation { get; init; } = string.Empty;
 }
