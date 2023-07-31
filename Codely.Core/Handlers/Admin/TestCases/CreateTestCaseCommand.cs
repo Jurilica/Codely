@@ -1,5 +1,49 @@
-﻿namespace Codely.Core.Handlers.Admin.TestCases;
+﻿using Codely.Core.Data;
+using Codely.Core.Data.Entities;
+using Codely.Core.Helpers;
+using MediatR;
 
-public class CreateTestCaseCommand
+namespace Codely.Core.Handlers.Admin.TestCases;
+
+public class CreateTestCaseCommand : IRequestHandler<CreateTestCaseRequest, CreateTestCaseResponse>
 {
+    private readonly CodelyContext _context;
+
+    public CreateTestCaseCommand(CodelyContext context)
+    {
+        _context = context;
+    }
+    
+    public async Task<CreateTestCaseResponse> Handle(CreateTestCaseRequest request, CancellationToken cancellationToken)
+    {
+        Guard.Against
+            .IsEmpty(request.Input, "Input can't be empty")
+            .IsEmpty(request.Output, "Output can't be empty");
+
+        var testCase = new TestCase
+        {
+            Input = request.Input,
+            Output = request.Output,
+            ProblemId = request.ProblemId
+        };
+
+        _context.TestCases.Add(testCase);
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return new CreateTestCaseResponse();
+    }
+}
+
+public sealed class CreateTestCaseRequest : IRequest<CreateTestCaseResponse>
+{
+    public int ProblemId { get; set; }
+    
+    public string Input { get; set; } = string.Empty;
+
+    public string Output { get; set; } = string.Empty;
+}
+
+public sealed class CreateTestCaseResponse
+{
+    public int TestCaseId { get; set; }
 }
