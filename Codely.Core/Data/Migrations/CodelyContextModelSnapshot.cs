@@ -54,7 +54,7 @@ namespace Codely.Core.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("output");
 
-                    b.Property<int?>("ProblemId")
+                    b.Property<int>("ProblemId")
                         .HasColumnType("integer")
                         .HasColumnName("problem_id");
 
@@ -89,6 +89,10 @@ namespace Codely.Core.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text")
@@ -116,6 +120,11 @@ namespace Codely.Core.Data.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
                     b.Property<int>("ProgrammingLanguage")
                         .HasColumnType("integer")
@@ -197,6 +206,14 @@ namespace Codely.Core.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
 
+                    b.Property<int>("ProblemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("problem_id");
+
+                    b.Property<int>("ProgrammingLanguageVersionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("programming_language_version_id");
+
                     b.Property<int>("SubmissionStatus")
                         .HasColumnType("integer")
                         .HasColumnName("submission_status");
@@ -208,10 +225,62 @@ namespace Codely.Core.Data.Migrations
                     b.HasKey("Id")
                         .HasName("pk_submissions");
 
+                    b.HasIndex("ProblemId")
+                        .HasDatabaseName("ix_submissions_problem_id");
+
+                    b.HasIndex("ProgrammingLanguageVersionId")
+                        .HasDatabaseName("ix_submissions_programming_language_version_id");
+
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_submissions_user_id");
 
                     b.ToTable("submissions", (string)null);
+                });
+
+            modelBuilder.Entity("Codely.Core.Data.Entities.SubmissionTestCase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("Archived")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("archived");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created");
+
+                    b.Property<string>("Output")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("output");
+
+                    b.Property<int>("SubmissionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("submission_id");
+
+                    b.Property<int>("SubmissionTestCaseStatus")
+                        .HasColumnType("integer")
+                        .HasColumnName("submission_test_case_status");
+
+                    b.Property<int>("TestCaseId")
+                        .HasColumnType("integer")
+                        .HasColumnName("test_case_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_submission_test_cases");
+
+                    b.HasIndex("SubmissionId")
+                        .HasDatabaseName("ix_submission_test_cases_submission_id");
+
+                    b.HasIndex("TestCaseId")
+                        .HasDatabaseName("ix_submission_test_cases_test_case_id");
+
+                    b.ToTable("submission_test_cases", (string)null);
                 });
 
             modelBuilder.Entity("Codely.Core.Data.Entities.TestCase", b =>
@@ -298,10 +367,14 @@ namespace Codely.Core.Data.Migrations
 
             modelBuilder.Entity("Codely.Core.Data.Entities.Example", b =>
                 {
-                    b.HasOne("Codely.Core.Data.Entities.Problem", null)
+                    b.HasOne("Codely.Core.Data.Entities.Problem", "Problem")
                         .WithMany("Examples")
                         .HasForeignKey("ProblemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("fk_examples_problems_problem_id");
+
+                    b.Navigation("Problem");
                 });
 
             modelBuilder.Entity("Codely.Core.Data.Entities.RefreshToken", b =>
@@ -318,6 +391,20 @@ namespace Codely.Core.Data.Migrations
 
             modelBuilder.Entity("Codely.Core.Data.Entities.Submission", b =>
                 {
+                    b.HasOne("Codely.Core.Data.Entities.Problem", "Problem")
+                        .WithMany()
+                        .HasForeignKey("ProblemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_submissions_problems_problem_id");
+
+                    b.HasOne("Codely.Core.Data.Entities.ProgrammingLanguageVersion", "ProgrammingLanguageVersion")
+                        .WithMany()
+                        .HasForeignKey("ProgrammingLanguageVersionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_submissions_programming_language_versions_programming_langu");
+
                     b.HasOne("Codely.Core.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -325,7 +412,32 @@ namespace Codely.Core.Data.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_submissions_users_user_id");
 
+                    b.Navigation("Problem");
+
+                    b.Navigation("ProgrammingLanguageVersion");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Codely.Core.Data.Entities.SubmissionTestCase", b =>
+                {
+                    b.HasOne("Codely.Core.Data.Entities.Submission", "Submission")
+                        .WithMany("SubmissionTestCases")
+                        .HasForeignKey("SubmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_submission_test_cases_submissions_submission_id");
+
+                    b.HasOne("Codely.Core.Data.Entities.TestCase", "TestCase")
+                        .WithMany()
+                        .HasForeignKey("TestCaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_submission_test_cases_test_cases_test_case_id");
+
+                    b.Navigation("Submission");
+
+                    b.Navigation("TestCase");
                 });
 
             modelBuilder.Entity("Codely.Core.Data.Entities.TestCase", b =>
@@ -341,6 +453,11 @@ namespace Codely.Core.Data.Migrations
                     b.Navigation("Examples");
 
                     b.Navigation("TestCases");
+                });
+
+            modelBuilder.Entity("Codely.Core.Data.Entities.Submission", b =>
+                {
+                    b.Navigation("SubmissionTestCases");
                 });
 #pragma warning restore 612, 618
         }
