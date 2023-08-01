@@ -1,3 +1,4 @@
+using Codely.Api.Constants;
 using Codely.Core.Handlers.User.Account;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ namespace Codely.Api.Controllers.User;
 
 [Route("user/authentication")]
 [ApiController]
+[ApiExplorerSettings(GroupName = SwaggerConstants.Shared)]
 public class AuthenticationController : ControllerBase
 {
     private readonly IMediator _mediator;

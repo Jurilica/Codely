@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Codely.Api.Authentication;
+using Codely.Api.Constants;
 using Codely.Core.Configuration.Settings;
 using Codely.Core.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,6 +15,11 @@ public static class StartupExtensions
     {
         services.AddSwaggerGen(x =>
         {
+            x.SwaggerDoc(SwaggerConstants.User, new OpenApiInfo { Title = "User API", Version = "v1" });
+            x.SwaggerDoc(SwaggerConstants.Admin, new OpenApiInfo { Title = "Admin API", Version = "v1" });
+            x.SwaggerDoc(SwaggerConstants.Shared, new OpenApiInfo { Title = "Shared API", Version = "v1" });
+            x.SupportNonNullableReferenceTypes();
+            
             x.SwaggerDoc("v1", new OpenApiInfo());
 
             x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

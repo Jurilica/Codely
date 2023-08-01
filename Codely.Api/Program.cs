@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Codely.Api.Constants;
 using Codely.Api.ServiceCollection;
 using Codely.Core.Configuration;
 using Hangfire;
@@ -21,7 +22,13 @@ builder.Services.AddHangfireServer();
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint($"/swagger/{SwaggerConstants.User}/swagger.json", "User");
+    c.SwaggerEndpoint($"/swagger/{SwaggerConstants.Admin}/swagger.json", "Admin");
+    c.SwaggerEndpoint($"/swagger/{SwaggerConstants.Shared}/swagger.json", "Shared");
+    c.DisplayRequestDuration();
+});
 
 app.UseHttpsRedirection();
 

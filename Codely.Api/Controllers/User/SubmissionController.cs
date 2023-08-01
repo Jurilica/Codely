@@ -1,4 +1,5 @@
-﻿using Codely.Core.Handlers.User.Submission;
+﻿using Codely.Api.Constants;
+using Codely.Core.Handlers.User.Submission;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,7 @@ namespace Codely.Api.Controllers.User;
 
 [Route("user/submission")]
 [ApiController]
+[ApiExplorerSettings(GroupName = SwaggerConstants.User)]
 public class SubmissionController : ControllerBase
 {
     private readonly IMediator _mediator;
