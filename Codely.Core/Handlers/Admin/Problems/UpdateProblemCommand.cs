@@ -23,7 +23,7 @@ public sealed class UpdateProblemCommand : IRequestHandler<UpdateProblemRequest,
         
         
         var problemAlreadyExists = await _context.Problems
-            .Where(x => String.Equals(x.Title, request.Title, StringComparison.CurrentCultureIgnoreCase))
+            .Where(x => x.Title.ToLower() == request.Title.ToLower())
             .Where(x => x.Id != request.ProblemId)
             .AnyAsync(cancellationToken);
 

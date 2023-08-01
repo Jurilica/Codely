@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Codely.Api.Controllers.Admin;
 
-[Route("user/problems")]
+[Route("admin/problems")]
 [ApiController]
 [ApiExplorerSettings(GroupName = SwaggerConstants.Admin)]
 public class ProblemsController : ControllerBase

@@ -25,7 +25,7 @@ public sealed class CreateProblemCommand : IRequestHandler<CreateProblemRequest,
             .IsEmpty(request.Description, "Description can't be empty");
 
         var problemAlreadyExists = await _context.Problems
-            .Where(x => string.Equals(x.Title, request.Title, StringComparison.CurrentCultureIgnoreCase))
+            .Where(x => x.Title.ToLower() == request.Title.ToLower())
             .AnyAsync(cancellationToken);
 
         if (problemAlreadyExists)
