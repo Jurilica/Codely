@@ -1,6 +1,4 @@
-﻿using Codely.Api.Attributes;
-using Codely.Core.Handlers.User.Problems;
-using Codely.Core.Types.Enums;
+﻿using Codely.Core.Handlers.User.Problems;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
