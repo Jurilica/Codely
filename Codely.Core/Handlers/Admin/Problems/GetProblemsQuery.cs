@@ -44,12 +44,12 @@ public sealed class GetProblemsQuery : IRequestHandler<GetProblemsRequest, GetPr
                             })
                         .ToList()
                 })
-            .ToListAsync(cancellationToken);;
+            .ToListAsync(cancellationToken);
 
         return new GetProblemsResponse
         {
             Problems = problems
-        };
+        };;
     }
 }
 
@@ -59,7 +59,7 @@ public sealed class GetProblemsRequest : IRequest<GetProblemsResponse>
 
 public sealed class GetProblemsResponse
 {
-    public List<GetProblemsData> Problems = new();
+    public List<GetProblemsData> Problems { get; set; }= new();
 }
 
 public sealed class GetProblemsData
