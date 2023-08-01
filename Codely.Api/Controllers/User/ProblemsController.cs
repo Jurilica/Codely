@@ -1,4 +1,6 @@
-﻿using Codely.Core.Handlers.User.Problems;
+﻿using Codely.Api.Attributes;
+using Codely.Core.Handlers.User.Problems;
+using Codely.Core.Types.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +18,7 @@ public class ProblemsController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<GetProblemsResponse> Submit()
+    public async Task<GetProblemsResponse> GetProblems()
     {
        return await _mediator.Send(new GetProblemsRequest());
     }
