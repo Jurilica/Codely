@@ -41,16 +41,16 @@ public sealed class CreateExampleCommand : IRequestHandler<CreateExampleRequest,
 
 public sealed class CreateExampleRequest : IRequest<CreateExampleResponse>
 {
-    public int ProblemId { get; set; }
+    public required int ProblemId { get; init; }
 
-    public string Input { get; set; } = string.Empty;
+    public required string Input { get; init; }
 
-    public string Output { get; set; } = string.Empty;
+    public required string Output { get; init; }
 
-    public string Explanation { get; set; } = string.Empty;
+    public required string Explanation { get; init; }
 }
 
 public sealed class CreateExampleResponse
 {
-    public int ExampleId { get; set; }
+    public required int ExampleId { get; set; }
 }

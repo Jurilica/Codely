@@ -52,16 +52,16 @@ public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterR
 
 public sealed class RegisterRequest : IRequest<RegisterResponse>
 {
-    public string Email { get; init; } = string.Empty;
+    public required string Email { get; init; }
 
-    public string Username { get; init; } = string.Empty;
+    public required string Username { get; init; } 
 
-    public string Password { get; init; } = string.Empty;
+    public required string Password { get; init; }
 }
 
 public sealed class RegisterResponse
 {
-    public string Token { get; init; } = string.Empty;
+    public required string Token { get; init; }
 
-    public string RefreshToken { get; init; } = string.Empty;
+    public required string RefreshToken { get; init; }
 }

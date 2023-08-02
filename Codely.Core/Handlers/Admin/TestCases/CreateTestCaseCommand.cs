@@ -30,20 +30,23 @@ public class CreateTestCaseCommand : IRequestHandler<CreateTestCaseRequest, Crea
         _context.TestCases.Add(testCase);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new CreateTestCaseResponse();
+        return new CreateTestCaseResponse
+        {
+            TestCaseId = testCase.Id
+        };
     }
 }
 
 public sealed class CreateTestCaseRequest : IRequest<CreateTestCaseResponse>
 {
-    public int ProblemId { get; set; }
+    public required int ProblemId { get; init; }
     
-    public string Input { get; set; } = string.Empty;
+    public required string Input { get; init; }
 
-    public string Output { get; set; } = string.Empty;
+    public required string Output { get; init; }
 }
 
 public sealed class CreateTestCaseResponse
 {
-    public int TestCaseId { get; set; }
+    public required int TestCaseId { get; init; }
 }

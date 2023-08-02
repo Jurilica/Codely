@@ -31,7 +31,7 @@ public sealed class ArchiveProblemCommand : IRequestHandler<ArchiveProblemReques
 
 public sealed class ArchiveProblemRequest : IRequest<ArchiveProblemResponse>
 {
-    public int ProblemId { get; set; }
+    public required int ProblemId { get; init; }
 }
 
 public sealed class ArchiveProblemResponse

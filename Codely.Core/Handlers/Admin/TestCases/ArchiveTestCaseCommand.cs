@@ -31,7 +31,7 @@ public sealed class ArchiveTestCaseCommand : IRequestHandler<ArchiveTestCaseRequ
 
 public sealed class ArchiveTestCaseRequest : IRequest<ArchiveTestCaseResponse>
 {
-    public int TestCaseId { get; set; }
+    public required int TestCaseId { get; init; }
 }
 
 public sealed class ArchiveTestCaseResponse

@@ -37,13 +37,13 @@ public sealed class UpdateExampleCommand : IRequestHandler<UpdateExampleRequest,
 
 public sealed class UpdateExampleRequest : IRequest<UpdateExampleResponse>
 {
-    public int ExampleId { get; set; }
+    public required int ExampleId { get; init; }
 
-    public string Input { get; set; } = string.Empty;
+    public required string Input { get; init; }
 
-    public string Output { get; set; } = string.Empty;
+    public required string Output { get; init; }
 
-    public string Explanation { get; set; } = string.Empty;
+    public required string Explanation { get; init; }
 }
 
 public sealed class UpdateExampleResponse

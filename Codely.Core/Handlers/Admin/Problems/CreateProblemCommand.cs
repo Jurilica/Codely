@@ -52,12 +52,12 @@ public sealed class CreateProblemCommand : IRequestHandler<CreateProblemRequest,
 
 public sealed class CreateProblemRequest : IRequest<CreateProblemResponse>
 {
-    public string Title { get; set; } = Empty;
+    public required string Title { get; init; }
 
-    public string Description { get; set; } = Empty;
+    public required string Description { get; init; } 
 }
 
 public sealed class CreateProblemResponse
 {
-    public int ProblemId { get; set; }
+    public int ProblemId { get; init; }
 }

@@ -47,7 +47,7 @@ public sealed class PublishProblemCommand : IRequestHandler<PublishProblemReques
 
 public sealed class PublishProblemRequest : IRequest<PublishProblemResponse>
 {
-    public int ProblemId { get; set; }
+    public required int ProblemId { get; init; }
 }
 
 public sealed class PublishProblemResponse

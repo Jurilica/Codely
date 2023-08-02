@@ -59,27 +59,27 @@ public sealed class GetProblemsRequest : IRequest<GetProblemsResponse>
 
 public sealed class GetProblemsResponse
 {
-    public List<GetProblemsData> Problems { get; init; } = new();
+    public required List<GetProblemsData> Problems { get; init; }
 }
 
 public sealed class GetProblemsData
 {
-    public int Id { get; init; }
+    public required int Id { get; init; }
 
-    public string Title { get; init; } = string.Empty;
+    public  required string Title { get; init; }
     
-    public string Description { get; init; } = string.Empty;
+    public required string Description { get; init; }
 
-    public bool IsSolved { get; init; }
+    public required bool IsSolved { get; init; }
 
-    public List<ExampleData> Examples { get; init; } = new();
+    public required List<ExampleData> Examples { get; init; }
 }
 
 public sealed class ExampleData
 {
-    public string Input { get; init; } = string.Empty;
+    public required string Input { get; init; }
 
-    public string Output { get; init; } = string.Empty;
+    public required string Output { get; init; }
 
-    public string Explanation { get; init; } = string.Empty;
+    public required string Explanation { get; init; } 
 }

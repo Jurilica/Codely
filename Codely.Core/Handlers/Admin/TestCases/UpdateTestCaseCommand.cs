@@ -35,11 +35,11 @@ public sealed class UpdateTestCaseCommand : IRequestHandler<UpdateTestCaseReques
 
 public sealed class UpdateTestCaseRequest : IRequest<UpdateTestCaseResponse>
 {
-    public int TestCaseId { get; set; }
+    public required int TestCaseId { get; init; }
 
-    public string Input { get; set; } = string.Empty;
+    public required string Input { get; init; }
 
-    public string Output { get; set; } = string.Empty;
+    public required string Output { get; init; }
 }
 
 public sealed class UpdateTestCaseResponse 

@@ -62,11 +62,11 @@ public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, S
 
 public sealed class SubmitAnswerRequest : IRequest<SubmitAnswerResponse>
 {
-    public int ProblemId { get; init; }
+    public required int ProblemId { get; init; }
 
-    public string Answer { get; init; } = string.Empty;
+    public required string Answer { get; init; }
     
-    public ProgrammingLanguage ProgrammingLanguage { get; init; }
+    public required ProgrammingLanguage ProgrammingLanguage { get; init; }
 }
 
 public sealed class SubmitAnswerResponse

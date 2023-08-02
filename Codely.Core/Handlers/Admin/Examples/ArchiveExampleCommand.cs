@@ -32,7 +32,7 @@ public sealed class ArchiveExampleCommand : IRequestHandler<ArchiveExampleReques
 
 public sealed class ArchiveExampleRequest : IRequest<ArchiveProblemResponse>
 {
-    public int ExampleId { get; set; }
+    public required int ExampleId { get; init; }
 }
 
 public sealed class ArchiveExampleResponse

@@ -47,11 +47,11 @@ public sealed class UpdateProblemCommand : IRequestHandler<UpdateProblemRequest,
 
 public sealed class UpdateProblemRequest : IRequest<UpdateProblemResponse>
 {
-    public int ProblemId { get; set; }
+    public required int ProblemId { get; init; }
     
-    public string Title { get; set; } = string.Empty;
+    public required string Title { get; init; }
 
-    public string Description { get; set; } = string.Empty;
+    public required string Description { get; init; }
 }
 
 public sealed class UpdateProblemResponse

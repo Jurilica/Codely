@@ -105,5 +105,5 @@ public sealed class ExecuteTestCasesCommand : IRequestHandler<ExecuteTestCasesRe
 
 public sealed class ExecuteTestCasesRequest : IRequest
 {
-    public int SubmissionId { get; init; }
+    public required int SubmissionId { get; init; }
 }

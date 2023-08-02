@@ -72,12 +72,12 @@ public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, R
 
 public sealed class RefreshTokenRequest : IRequest<RefreshTokenResponse>
 {
-    public string? RefreshToken { get; init; }
+    public required string? RefreshToken { get; init; }
 }
 
 public sealed class RefreshTokenResponse
 {
-    public string Token { get; init; } = string.Empty;
+    public required string Token { get; init; }
 
-    public string RefreshToken { get; init; } = string.Empty;
+    public required string RefreshToken { get; init; }
 }

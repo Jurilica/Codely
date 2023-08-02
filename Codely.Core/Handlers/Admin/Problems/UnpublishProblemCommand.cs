@@ -29,7 +29,7 @@ public sealed class UnpublishProblemCommand : IRequestHandler<UnpublishProblemRe
 
 public sealed class UnpublishProblemRequest : IRequest<UnpublishedProblemResponse>
 {
-    public int ProblemId { get; set; }
+    public required int ProblemId { get; init; }
 }
 
 public sealed class UnpublishedProblemResponse
