@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Codely.Api.Constants;
+using Codely.Api.Middleware;
 using Codely.Api.ServiceCollection;
 using Codely.Core.Configuration;
 using Hangfire;
@@ -31,6 +32,8 @@ app.UseSwaggerUI(c =>
 });
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ResponseRewriteMiddleware>();
 
 app.UseCors(x => 
     x.AllowAnyOrigin()
