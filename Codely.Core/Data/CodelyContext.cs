@@ -52,7 +52,7 @@ public class CodelyContext : DbContext
         // null
         var falseConstant = Expression.Constant(null);
         // x.ArchiveDate
-        var propertyAccess = Expression.PropertyOrField(parameter, nameof(BaseEntity.Created));
+        var propertyAccess = Expression.PropertyOrField(parameter, nameof(BaseEntity.Archived));
         // e.ArchiveDate == null
         var equalExpression = Expression.Equal(propertyAccess, falseConstant);
         // x => e.ArchiveDate == null
