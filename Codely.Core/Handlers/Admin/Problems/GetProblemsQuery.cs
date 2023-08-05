@@ -1,5 +1,4 @@
 ﻿using Codely.Core.Data;
-using Codely.Core.Handlers.User.Problems;
 using Codely.Core.Types.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

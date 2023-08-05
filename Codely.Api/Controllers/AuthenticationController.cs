@@ -4,9 +4,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Codely.Api.Controllers.User;
+namespace Codely.Api.Controllers;
 
-[Route("user/authentication")]
+[Route("authentication")]
 [ApiController]
 [ApiExplorerSettings(GroupName = SwaggerConstants.Shared)]
 public class AuthenticationController : ControllerBase

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Codely.Core.Handlers.Admin.Examples;
 
-public sealed class ArchiveExampleCommand : IRequestHandler<ArchiveExampleRequest, ArchiveProblemResponse>
+public sealed class ArchiveExampleCommand : IRequestHandler<ArchiveExampleRequest, ArchiveExampleResponse>
 {
     private readonly CodelyContext _context;
     private readonly ISystemTime _systemTime;
@@ -17,7 +17,7 @@ public sealed class ArchiveExampleCommand : IRequestHandler<ArchiveExampleReques
         _systemTime = systemTime;
     }
 
-    public async Task<ArchiveProblemResponse> Handle(ArchiveExampleRequest request, CancellationToken cancellationToken)
+    public async Task<ArchiveExampleResponse> Handle(ArchiveExampleRequest request, CancellationToken cancellationToken)
     {
         var example = await _context.Examples
             .Where(x => x.Id == request.ExampleId)
@@ -26,11 +26,11 @@ public sealed class ArchiveExampleCommand : IRequestHandler<ArchiveExampleReques
         example.Archived = _systemTime.Now;
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ArchiveProblemResponse();
+        return new ArchiveExampleResponse();
     }
 }
 
-public sealed class ArchiveExampleRequest : IRequest<ArchiveProblemResponse>
+public sealed class ArchiveExampleRequest : IRequest<ArchiveExampleResponse>
 {
     public required int ExampleId { get; init; }
 }

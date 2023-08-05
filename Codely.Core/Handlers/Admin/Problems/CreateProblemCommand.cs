@@ -5,7 +5,6 @@ using Codely.Core.Types;
 using Codely.Core.Types.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using static System.String;
 
 namespace Codely.Core.Handlers.Admin.Problems;
 

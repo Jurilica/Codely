@@ -35,6 +35,7 @@ public sealed class GetProblemQuery : IRequestHandler<GetProblemRequest, GetProb
                                 Input = y.Input,
                                 Output = y.Output
                             })
+                        .OrderBy(y => y.Id)
                         .ToList(),
                     TestCases = x.TestCases
                         .Select(y =>
@@ -44,6 +45,7 @@ public sealed class GetProblemQuery : IRequestHandler<GetProblemRequest, GetProb
                                 Input = y.Input,
                                 Output = y.Output
                             })
+                        .OrderBy(y => y.Id)
                         .ToList()
                 })
             .FirstOrDefaultAsync(cancellationToken);

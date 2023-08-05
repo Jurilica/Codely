@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Codely.Core.Handlers.Admin.Problems;
 
-public sealed class UnpublishProblemCommand : IRequestHandler<UnpublishProblemRequest, UnpublishedProblemResponse>
+public sealed class UnpublishProblemCommand : IRequestHandler<UnpublishProblemRequest, UnpublishProblemResponse>
 {
     private readonly CodelyContext _context;
 
@@ -14,7 +14,7 @@ public sealed class UnpublishProblemCommand : IRequestHandler<UnpublishProblemRe
         _context = context;
     }
     
-    public async Task<UnpublishedProblemResponse> Handle(UnpublishProblemRequest request, CancellationToken cancellationToken)
+    public async Task<UnpublishProblemResponse> Handle(UnpublishProblemRequest request, CancellationToken cancellationToken)
     {
         var problem = await _context.Problems
             .Where(x => x.Id == request.ProblemId)
@@ -23,15 +23,15 @@ public sealed class UnpublishProblemCommand : IRequestHandler<UnpublishProblemRe
         problem.Status = ProblemStatus.Unpublished;
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new UnpublishedProblemResponse();
+        return new UnpublishProblemResponse();
     }
 }
 
-public sealed class UnpublishProblemRequest : IRequest<UnpublishedProblemResponse>
+public sealed class UnpublishProblemRequest : IRequest<UnpublishProblemResponse>
 {
     public required int ProblemId { get; init; }
 }
 
-public sealed class UnpublishedProblemResponse
+public sealed class UnpublishProblemResponse
 {
 }
