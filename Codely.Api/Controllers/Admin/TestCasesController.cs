@@ -1,8 +1,6 @@
 ﻿using Codely.Api.Constants;
-using Codely.Core.Handlers.Admin.Examples;
 using Codely.Core.Handlers.Admin.TestCases;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Codely.Api.Controllers.Admin;
