@@ -1,5 +1,5 @@
 using Codely.Api.Constants;
-using Codely.Core.Handlers.User.Account;
+using Codely.Core.Handlers.Account;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

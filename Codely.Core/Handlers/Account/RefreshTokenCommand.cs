@@ -5,7 +5,7 @@ using Codely.Core.Types;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Codely.Core.Handlers.User.Account;
+namespace Codely.Core.Handlers.Account;
 
 public sealed class RefreshTokenCommand : IRequestHandler<RefreshTokenRequest, RefreshTokenResponse>
 {

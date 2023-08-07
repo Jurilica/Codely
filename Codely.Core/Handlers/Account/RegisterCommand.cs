@@ -1,10 +1,12 @@
 ﻿using Codely.Core.Data;
 using Codely.Core.Helpers;
 using Codely.Core.Services;
+using Codely.Core.Types;
 using Codely.Core.Types.Enums;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace Codely.Core.Handlers.User.Account;
+namespace Codely.Core.Handlers.Account;
 
 public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterResponse>
 {
@@ -23,6 +25,24 @@ public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterR
             .IsEmpty(request.Email, "Empty email")
             .IsEmpty(request.Password, "Empty password")
             .IsToShort(request.Password, 5, "Password is to short");
+
+        var userWithSameEmailExists = await _context.Users
+            .Where(x => x.Email == request.Email)
+            .AnyAsync(cancellationToken);
+
+        if (userWithSameEmailExists)
+        {
+            throw new CodelyException("User with same email already registered");
+        }
+        
+        var userWithSameUsernameExists = await _context.Users
+            .Where(x => x.Username == request.Username)
+            .AnyAsync(cancellationToken);
+        
+        if (userWithSameEmailExists)
+        {
+            throw new CodelyException("User with same username already registered");
+        }
 
         var user = new Data.Entities.User
         {
