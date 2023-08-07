@@ -21,18 +21,18 @@ public sealed class LoginCommand : IRequestHandler<LoginRequest, LoginResponse>
     public async Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
         Guard.Against
-            .IsEmpty(request.Email, "Empty email")
+            .IsEmpty(request.Username, "Empty email")
             .IsEmpty(request.Password, "Empty password");
 
         var user = await _context.Users
-            .Where(x => x.Email == request.Email)
+            .Where(x => x.Username == request.Username)
             .SingleOrDefaultAsync(cancellationToken);
 
         var isPasswordValid = PasswordHasher.Verify(user?.PasswordHash, request.Password);
 
         if (!isPasswordValid)
         {
-            throw new CodelyException("Wrong email or password");
+            throw new CodelyException("Wrong username or password");
         }
 
         var refreshToken = _jwtTokenProvider.CreateRefreshToken(user!.Id);
@@ -52,7 +52,7 @@ public sealed class LoginCommand : IRequestHandler<LoginRequest, LoginResponse>
 
 public sealed class LoginRequest : IRequest<LoginResponse>
 {
-    public required string Email { get; init; }
+    public required string Username { get; init; }
 
     public required string Password { get; init; }
 }

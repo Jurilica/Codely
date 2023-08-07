@@ -39,7 +39,7 @@ public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterR
             .Where(x => x.Username == request.Username)
             .AnyAsync(cancellationToken);
         
-        if (userWithSameEmailExists)
+        if (userWithSameUsernameExists)
         {
             throw new CodelyException("User with same username already registered");
         }
