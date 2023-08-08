@@ -29,9 +29,9 @@ public class SubmissionController : ControllerBase
         });
     }
 
-    [HttpPost("submit")]
-    public async Task Submit(SubmitAnswerRequest request)
+    [HttpPost]
+    public async Task<SubmitAnswerResponse> Submit(SubmitAnswerRequest request)
     {
-        await _mediator.Send(request);
+        return await _mediator.Send(request);
     }
 }
