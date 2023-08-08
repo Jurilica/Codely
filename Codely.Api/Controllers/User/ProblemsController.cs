@@ -25,4 +25,13 @@ public class ProblemsController : ControllerBase
     {
        return await _mediator.Send(new GetProblemsRequest());
     }
+    
+    [HttpGet("{id}")]
+    public async Task<GetProblemResponse> GetProblems(int id)
+    {
+        return await _mediator.Send(new GetProblemRequest
+        {
+            ProblemId = id
+        });
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using Codely.Core.Data;
+using Codely.Core.Helpers;
 using Codely.Core.Services;
 using Codely.Core.Types.Enums;
 using MediatR;
@@ -19,36 +20,49 @@ public sealed class GetProblemsQuery : IRequestHandler<GetProblemsRequest, GetPr
     
     public async Task<GetProblemsResponse> Handle(GetProblemsRequest request, CancellationToken cancellationToken)
     {
-        var solvedProblems = await _context.Submissions
+        var submissions = await _context.Submissions
             .Where(x => x.UserId == _currentUserService.Id)
-            .Where(x => x.SubmissionStatus == SubmissionStatus.Succeeded)
-            .Select(x => x.ProblemId)
+            .GroupBy(x => x.ProblemId)
+            .Select(x => 
+                new
+                {
+                    ProblemId = x.Key,
+                    SubmissionStatus = x
+                        .OrderByDescending(y => y.Created)
+                        .Select(y => (SubmissionStatus?)y.SubmissionStatus)
+                        .FirstOrDefault()
+                })
             .ToListAsync(cancellationToken);
 
-        var problems = await _context.Problems
+        var problemsData = await _context.Problems
             .Where(x => x.Status == ProblemStatus.Published)
+            .Select(x =>
+                new
+                {
+                    x.Id,
+                    x.Title,
+                    x.Description
+                })
+            .ToListAsync(cancellationToken);
+        
+        var problems = problemsData
             .Select(x =>
                 new GetProblemsData
                 {
                     Id = x.Id,
                     Title = x.Title,
                     Description = x.Description,
-                    IsSolved = solvedProblems.Contains(x.Id),
-                    Examples = x.Examples
-                        .Select(y =>
-                            new ExampleData
-                            {
-                                Input = y.Input,
-                                Output = y.Output,
-                                Explanation = y.Explanation
-                            })
-                        .ToList()
+                    ProblemSubmissionStatus = submissions
+                        .Where(y => y.ProblemId == x.Id)
+                        .Select(y => y.SubmissionStatus)
+                        .FirstOrDefault()
+                        .ToProblemSubmissionStatus()
                 })
-            .ToListAsync(cancellationToken);
+            .ToList();
 
         return new GetProblemsResponse
         {
-            Problems= problems
+            Problems = problems
         };
     }
 }
@@ -70,16 +84,5 @@ public sealed class GetProblemsData
     
     public required string Description { get; init; }
 
-    public required bool IsSolved { get; init; }
-
-    public required List<ExampleData> Examples { get; init; }
-}
-
-public sealed class ExampleData
-{
-    public required string Input { get; init; }
-
-    public required string Output { get; init; }
-
-    public required string Explanation { get; init; } 
+    public required ProblemSubmissionStatus ProblemSubmissionStatus { get; init; }
 }
