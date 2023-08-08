@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Codely.Core.Data.Migrations
 {
     [DbContext(typeof(CodelyContext))]
-    [Migration("20230731083123_Initial")]
+    [Migration("20230808211101_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -107,43 +107,6 @@ namespace Codely.Core.Data.Migrations
                     b.ToTable("problems", (string)null);
                 });
 
-            modelBuilder.Entity("Codely.Core.Data.Entities.ProgrammingLanguageVersion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Archived")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("archived");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.Property<int>("ProgrammingLanguage")
-                        .HasColumnType("integer")
-                        .HasColumnName("programming_language");
-
-                    b.Property<string>("Version")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("version");
-
-                    b.HasKey("Id")
-                        .HasName("pk_programming_language_versions");
-
-                    b.ToTable("programming_language_versions", (string)null);
-                });
-
             modelBuilder.Entity("Codely.Core.Data.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -213,9 +176,9 @@ namespace Codely.Core.Data.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("problem_id");
 
-                    b.Property<int>("ProgrammingLanguageVersionId")
+                    b.Property<int>("ProgrammingLanguage")
                         .HasColumnType("integer")
-                        .HasColumnName("programming_language_version_id");
+                        .HasColumnName("programming_language");
 
                     b.Property<int>("SubmissionStatus")
                         .HasColumnType("integer")
@@ -230,9 +193,6 @@ namespace Codely.Core.Data.Migrations
 
                     b.HasIndex("ProblemId")
                         .HasDatabaseName("ix_submissions_problem_id");
-
-                    b.HasIndex("ProgrammingLanguageVersionId")
-                        .HasDatabaseName("ix_submissions_programming_language_version_id");
 
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_submissions_user_id");
@@ -313,7 +273,7 @@ namespace Codely.Core.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("output");
 
-                    b.Property<int?>("ProblemId")
+                    b.Property<int>("ProblemId")
                         .HasColumnType("integer")
                         .HasColumnName("problem_id");
 
@@ -401,13 +361,6 @@ namespace Codely.Core.Data.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_submissions_problems_problem_id");
 
-                    b.HasOne("Codely.Core.Data.Entities.ProgrammingLanguageVersion", "ProgrammingLanguageVersion")
-                        .WithMany()
-                        .HasForeignKey("ProgrammingLanguageVersionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_submissions_programming_language_versions_programming_langu");
-
                     b.HasOne("Codely.Core.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -416,8 +369,6 @@ namespace Codely.Core.Data.Migrations
                         .HasConstraintName("fk_submissions_users_user_id");
 
                     b.Navigation("Problem");
-
-                    b.Navigation("ProgrammingLanguageVersion");
 
                     b.Navigation("User");
                 });
@@ -445,10 +396,14 @@ namespace Codely.Core.Data.Migrations
 
             modelBuilder.Entity("Codely.Core.Data.Entities.TestCase", b =>
                 {
-                    b.HasOne("Codely.Core.Data.Entities.Problem", null)
+                    b.HasOne("Codely.Core.Data.Entities.Problem", "Problem")
                         .WithMany("TestCases")
                         .HasForeignKey("ProblemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("fk_test_cases_problems_problem_id");
+
+                    b.Navigation("Problem");
                 });
 
             modelBuilder.Entity("Codely.Core.Data.Entities.Problem", b =>

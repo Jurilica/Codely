@@ -5,11 +5,11 @@ namespace Codely.Core.Data.Entities;
 
 public sealed class Problem : BaseEntity
 {
-    public string Title { get; set; } = string.Empty;
+    public required string Title { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
+    public required string Description { get; set; } = string.Empty;
 
-    public ProblemStatus Status { get; set; }
+    public required ProblemStatus Status { get; set; }
 
     public List<Example> Examples { get; init; } = new();
 

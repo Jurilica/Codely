@@ -30,23 +30,6 @@ namespace Codely.Core.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "programming_language_versions",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    programming_language = table.Column<int>(type: "integer", nullable: false),
-                    name = table.Column<string>(type: "text", nullable: false),
-                    version = table.Column<string>(type: "text", nullable: false),
-                    created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    archived = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_programming_language_versions", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
                 {
@@ -96,7 +79,7 @@ namespace Codely.Core.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     input = table.Column<string>(type: "text", nullable: false),
                     output = table.Column<string>(type: "text", nullable: false),
-                    problem_id = table.Column<int>(type: "integer", nullable: true),
+                    problem_id = table.Column<int>(type: "integer", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     archived = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -107,7 +90,8 @@ namespace Codely.Core.Data.Migrations
                         name: "fk_test_cases_problems_problem_id",
                         column: x => x.problem_id,
                         principalTable: "problems",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -142,8 +126,8 @@ namespace Codely.Core.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     answer = table.Column<string>(type: "text", nullable: false),
                     submission_status = table.Column<int>(type: "integer", nullable: false),
+                    programming_language = table.Column<int>(type: "integer", nullable: false),
                     user_id = table.Column<int>(type: "integer", nullable: false),
-                    programming_language_version_id = table.Column<int>(type: "integer", nullable: false),
                     problem_id = table.Column<int>(type: "integer", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     archived = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -155,12 +139,6 @@ namespace Codely.Core.Data.Migrations
                         name: "fk_submissions_problems_problem_id",
                         column: x => x.problem_id,
                         principalTable: "problems",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_submissions_programming_language_versions_programming_langu",
-                        column: x => x.programming_language_version_id,
-                        principalTable: "programming_language_versions",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -227,11 +205,6 @@ namespace Codely.Core.Data.Migrations
                 column: "problem_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_submissions_programming_language_version_id",
-                table: "submissions",
-                column: "programming_language_version_id");
-
-            migrationBuilder.CreateIndex(
                 name: "ix_submissions_user_id",
                 table: "submissions",
                 column: "user_id");
@@ -259,9 +232,6 @@ namespace Codely.Core.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "test_cases");
-
-            migrationBuilder.DropTable(
-                name: "programming_language_versions");
 
             migrationBuilder.DropTable(
                 name: "users");

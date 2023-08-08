@@ -5,19 +5,17 @@ namespace Codely.Core.Data.Entities;
 
 public sealed class Submission : BaseEntity
 {
-    public string Answer { get; set; } = string.Empty;
+    public required string Answer { get; set; }
 
-    public SubmissionStatus SubmissionStatus { get; set; }
+    public required SubmissionStatus SubmissionStatus { get; set; }
+    
+    public required ProgrammingLanguage ProgrammingLanguage { get; set; }
 
-    public int UserId { get; set; }
+    public required int UserId { get; set; }
 
     public User User { get; set; } = null!;
-
-    public int ProgrammingLanguageVersionId { get; set; }
-
-    public ProgrammingLanguageVersion ProgrammingLanguageVersion { get; set; } = null!;
-
-    public int ProblemId { get; set; }
+    
+    public required int ProblemId { get; set; }
 
     public Problem Problem { get; set; } = null!;
 

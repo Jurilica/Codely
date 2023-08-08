@@ -5,11 +5,11 @@ namespace Codely.Core.Data.Entities;
 
 public sealed class User : BaseEntity
 {
-    public string Username { get; set; } = string.Empty;
+    public required string Username { get; set; }
 
-    public string Email { get; set; } = string.Empty;
+    public required string Email { get; set; }
 
-    public string PasswordHash { get; set; } = string.Empty;
+    public required string PasswordHash { get; set; }
 
-    public Role Role { get; set; }
+    public required Role Role { get; set; }
 }

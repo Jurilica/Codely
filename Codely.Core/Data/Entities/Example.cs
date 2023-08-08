@@ -4,13 +4,13 @@ namespace Codely.Core.Data.Entities;
 
 public sealed class Example : BaseEntity
 {
-    public string Input { get; set; } = string.Empty;
+    public required string Input { get; set; }
 
-    public string Output { get; set; } = string.Empty;
+    public required string Output { get; set; }
 
-    public string Explanation { get; set; } = string.Empty;
+    public required string Explanation { get; set; }
 
-    public int ProblemId { get; set; }
+    public required int ProblemId { get; set; }
 
     public Problem Problem { get; set; } = null!;
 }

@@ -26,28 +26,12 @@ public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, S
         Guard.Against
             .IsEmpty(request.Answer, "Answer is empty");
 
-        var programmingLanguageVersion = await _context.ProgrammingLanguageVersions
-            .Where(x => x.ProgrammingLanguage == request.ProgrammingLanguage)
-            .Select(x => 
-                new
-                {
-                    x.Id,
-                    x.Version,
-                    x.Name
-                })
-            .SingleOrDefaultAsync(cancellationToken);
-
-        if (programmingLanguageVersion is null)
-        {
-            throw new CodelyException("Invalid programming language");
-        }
-
         var submission = new Data.Entities.Submission
         {
             UserId = _currentUserService.Id,
             Answer = request.Answer,
             SubmissionStatus = SubmissionStatus.Created,
-            ProgrammingLanguageVersionId = programmingLanguageVersion.Id,
+            ProgrammingLanguage = request.ProgrammingLanguage,
             ProblemId = request.ProblemId
         };
 
@@ -63,7 +47,7 @@ public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, S
 public sealed class SubmitAnswerRequest : IRequest<SubmitAnswerResponse>
 {
     public required int ProblemId { get; init; }
-
+    
     public required string Answer { get; init; }
     
     public required ProgrammingLanguage ProgrammingLanguage { get; init; }

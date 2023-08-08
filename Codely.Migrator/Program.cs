@@ -40,12 +40,4 @@ var problem = new Problem
 
 context.Problems.Add(problem);
 
-var programmingLanguageVersion = new ProgrammingLanguageVersion
-{
-    ProgrammingLanguage = ProgrammingLanguage.Cpp,
-    Version = "10.2.0",
-    Name = "c++"
-};
-
-context.ProgrammingLanguageVersions.Add(programmingLanguageVersion);
 await context.SaveChangesAsync();
