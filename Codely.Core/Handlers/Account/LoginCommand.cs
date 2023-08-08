@@ -21,7 +21,7 @@ public sealed class LoginCommand : IRequestHandler<LoginRequest, LoginResponse>
     public async Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
         Guard.Against
-            .IsEmpty(request.Username, "Empty email")
+            .IsEmpty(request.Username, "Empty username")
             .IsEmpty(request.Password, "Empty password");
 
         var user = await _context.Users

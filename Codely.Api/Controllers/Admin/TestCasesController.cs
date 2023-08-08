@@ -1,5 +1,7 @@
-﻿using Codely.Api.Constants;
+﻿using Codely.Api.Attributes;
+using Codely.Api.Constants;
 using Codely.Core.Handlers.Admin.TestCases;
+using Codely.Core.Types.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +10,7 @@ namespace Codely.Api.Controllers.Admin;
 [Route("admin/test-cases")]
 [ApiController]
 [ApiExplorerSettings(GroupName = SwaggerConstants.Admin)]
+[RoleAuthorize(Role.Admin)]
 public class TestCasesController : ControllerBase
 {
     private readonly IMediator _mediator;
