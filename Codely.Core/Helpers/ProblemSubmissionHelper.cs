@@ -13,4 +13,14 @@ public static class ProblemSubmissionHelper
             SubmissionStatus.Succeeded => ProblemSubmissionStatus.Succeeded,
             _ => ProblemSubmissionStatus.Unsolved
         };
+    
+    public static ProblemSubmissionStatus ToProblemSubmissionStatus(this SubmissionStatus submissionStatus) =>
+        submissionStatus switch
+        {
+            SubmissionStatus.Created => ProblemSubmissionStatus.Pending,
+            SubmissionStatus.Failed => ProblemSubmissionStatus.Failed,
+            SubmissionStatus.InternalError => ProblemSubmissionStatus.Failed,
+            SubmissionStatus.Succeeded => ProblemSubmissionStatus.Succeeded,
+            _ => ProblemSubmissionStatus.Unsolved
+        };
 }

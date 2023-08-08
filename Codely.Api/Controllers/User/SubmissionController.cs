@@ -19,6 +19,15 @@ public class SubmissionController : ControllerBase
     {
         _mediator = mediator;
     }
+    
+    [HttpGet("{problemId}")]
+    public async Task<GetSubmissionsResponse> GetSubmissions(int problemId)
+    {
+        return await _mediator.Send(new GetSubmissionsRequest
+        {
+            ProblemId = problemId
+        });
+    }
 
     [HttpPost("submit")]
     public async Task Submit(SubmitAnswerRequest request)
