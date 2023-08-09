@@ -3,6 +3,5 @@
 public enum SubmissionTestCaseStatus
 {
     CorrectAnswer = 1,
-    WrongAnswer = 2,
-    Error = 3
+    WrongAnswer = 2
 }

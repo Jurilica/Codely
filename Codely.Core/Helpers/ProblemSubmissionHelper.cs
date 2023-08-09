@@ -9,7 +9,6 @@ public static class ProblemSubmissionHelper
         {
             SubmissionStatus.Created => ProblemSubmissionStatus.Pending,
             SubmissionStatus.Failed => ProblemSubmissionStatus.Failed,
-            SubmissionStatus.InternalError => ProblemSubmissionStatus.Failed,
             SubmissionStatus.Succeeded => ProblemSubmissionStatus.Succeeded,
             _ => ProblemSubmissionStatus.Unsolved
         };
@@ -19,7 +18,6 @@ public static class ProblemSubmissionHelper
         {
             SubmissionStatus.Created => ProblemSubmissionStatus.Pending,
             SubmissionStatus.Failed => ProblemSubmissionStatus.Failed,
-            SubmissionStatus.InternalError => ProblemSubmissionStatus.Failed,
             SubmissionStatus.Succeeded => ProblemSubmissionStatus.Succeeded,
             _ => ProblemSubmissionStatus.Unsolved
         };

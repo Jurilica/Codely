@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="BCrypt.Net" Version="0.1.0" />
+      <PackageReference Include="CliWrap" Version="3.6.4" />
       <PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
       <PackageReference Include="Hangfire.AspNetCore" Version="1.7.34" />
       <PackageReference Include="Hangfire.PostgreSql" Version="1.19.12" />

@@ -21,6 +21,7 @@ public static class CoreServiceConfiguration
         var jwtSettingsSection = configuration.GetSection(nameof(JwtSettings));
         services.Configure<JwtSettings>(jwtSettingsSection);
 
+        services.AddTransient<ICodeExecutionService, CodeExecutionService>();
         services.AddTransient<IJwtTokenProvider, JwtTokenProvider>();
         services.AddTransient<ITestCaseService, TestCaseService>();
         services.AddTransient<ITestCaseJobs, TestCaseJobs>();
