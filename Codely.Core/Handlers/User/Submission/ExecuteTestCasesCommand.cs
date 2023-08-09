@@ -46,10 +46,13 @@ public sealed class ExecuteTestCasesCommand : IRequestHandler<ExecuteTestCasesRe
         var resultWithDelimiter = await _codeExecutionService.ExecuteCode(submissionData.Submission.Answer,
             submissionData.Submission.ProgrammingLanguage, testCaseInputsWithDelimiter, cancellationToken);
 
+        //remove first delimiter at the beginning of the string
+        resultWithDelimiter = resultWithDelimiter.Remove(0, Delimiter.Length);
+
         var testCaseOutputs = resultWithDelimiter.Split(Delimiter);
 
         var submissionTestCases = new List<SubmissionTestCase>();
-        for (var i = 0; i <= testCaseOutputs.Length; i++)
+        for (var i = 0; i < testCaseOutputs.Length; i++)
         {
             var testCaseOutput = testCaseOutputs[i];
             var testCase = submissionData.TestCases[i];

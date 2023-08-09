@@ -18,6 +18,7 @@ docker run^
     --rm ^
     --log-driver none^
     -v %abs%:/%file%^
+    -v "C:\Users\Jurica Leljak\RiderProjects\Codely\docker\executors\input_processing.sh:/input_processing.sh"^
     -v "C:\Users\Jurica Leljak\RiderProjects\Codely\docker\executors\python.sh:/python_executor"^
     -v "C:\Users\Jurica Leljak\RiderProjects\Codely\docker\executors\js.sh:/js_executor"^
     -v "C:\Users\Jurica Leljak\RiderProjects\Codely\docker\executors\cpp.sh:/cpp_executor"^

@@ -13,6 +13,8 @@ public interface ICodeExecutionService
 
 public sealed class CodeExecutionService : ICodeExecutionService
 {
+    private const string LineEnding = "!!!";
+    
     public async Task<string> ExecuteCode(string sourceCode, ProgrammingLanguage programmingLanguage,
         string testCaseInputsWithDelimiter, CancellationToken cancellationToken)
     {
@@ -29,6 +31,10 @@ public sealed class CodeExecutionService : ICodeExecutionService
         var path = $@"c:\Test\{fileName}{extension}";
 
         await File.WriteAllTextAsync(path, sourceCode, cancellationToken);
+
+        // in batch file line ending represents new argument
+        // line endings are replaced so input can be only one parameter
+        testCaseInputsWithDelimiter = testCaseInputsWithDelimiter.ReplaceLineEndings(LineEnding);
         
         var args = new List<string>
         {
