@@ -1,25 +1,19 @@
 #!/bin/bash
 
-function getDelimiter()
-{
-    echo "TestCase:"
-}
+DELIMITER="TestCase:"
+INPUT_ARRAY=()
 
 function processInput()
 {
-    local delimiter=$(getDelimiter)
-
     local inputs=$1
     local inpustWithLineEndigs="${inputs//!!!/\\n}"
 
-    local inputsString=$inpustWithLineEndigs$delimiter
+    local inputsString=$inpustWithLineEndigs$DELIMITER
 
-    inputsArray=()
+    INPUT_ARRAY=()
     while [[ $inputsString ]];
     do
-        inputsArray+=("${inputsString%%"$delimiter"*}")
-        inputsString=${inputsString#*"$delimiter"}
+        INPUT_ARRAY+=("${inputsString%%"$DELIMITER"*}")
+        inputsString=${inputsString#*"$DELIMITER"}
     done
-
-    echo "${inputsArray[@]}"
 }
