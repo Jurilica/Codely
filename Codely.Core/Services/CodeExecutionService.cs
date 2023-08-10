@@ -13,7 +13,7 @@ public interface ICodeExecutionService
 
 public sealed class CodeExecutionService : ICodeExecutionService
 {
-    private const string LineEnding = "!!!";
+    private const string LineEnding = "\\n";
     
     public async Task<string> ExecuteCode(string sourceCode, ProgrammingLanguage programmingLanguage,
         string testCaseInputsWithDelimiter, CancellationToken cancellationToken)

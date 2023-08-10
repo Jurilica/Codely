@@ -12,8 +12,6 @@ if "%extension%" == ".py" set executor="/python_executor"
 if "%extension%" == ".js" set executor="/js_executor"
 if "%extension%" == ".cpp" set executor="/cpp_executor"
 
-
-
 docker run^
     -m 64m^
     --cpus=".5"^
