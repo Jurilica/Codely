@@ -9,5 +9,5 @@ processInput "$inputs"
 for val in "${INPUT_ARRAY[@]}";
 do
     echo -n $DELIMITER
-    echo -e $val | ./binary 
+    timeout -s KILL 3 echo -e $val | ./binary
 done

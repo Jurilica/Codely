@@ -57,7 +57,7 @@ public sealed class ExecuteTestCasesCommand : IRequestHandler<ExecuteTestCasesRe
             var testCaseOutput = testCaseOutputs[i];
             var testCase = submissionData.TestCases[i];
             
-            var isCorrect = testCaseOutput == testCase.Output;
+            var isCorrect = testCaseOutput.Trim() == testCase.Output;
 
             var submissionTestCaseStatus = isCorrect
                 ? SubmissionTestCaseStatus.CorrectAnswer
