@@ -2,10 +2,9 @@
 
 public enum ProgrammingLanguage
 {
-    CSharp = 1,
-    C = 2,
-    Cpp = 3,
-    Python = 4,
-    JavaScript = 5,
-    Java = 6
+    C = 1,
+    Cpp = 2,
+    Python = 3,
+    JavaScript = 4,
+    Java = 5
 }

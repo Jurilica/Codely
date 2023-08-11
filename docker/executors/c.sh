@@ -1,6 +1,6 @@
 #!/bin/bash
 source "$(dirname "$0")/input_processing.sh"
-timeout -s KILL 10 g++ -o binary -x c++ $1
+timeout -s KILL 10 gcc -o binary $1
 
 inputs=${@:2}
 
