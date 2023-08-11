@@ -1,2 +1,2 @@
 @echo off
-docker build -t rce .
+docker build --no-cache -t rce .

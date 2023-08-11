@@ -11,9 +11,10 @@ for %%a in (%abs%) do (
 if "%extension%" == ".py" set executor="/python_executor"
 if "%extension%" == ".js" set executor="/js_executor"
 if "%extension%" == ".cpp" set executor="/cpp_executor"
+if "%extension%" == ".java" set executor="/java_executor"
 
 docker run^
-    -m 64m^
+    -m 128m^
     --cpus=".5"^
     --rm ^
     --log-driver none^
@@ -22,6 +23,7 @@ docker run^
     -v "C:\Users\Jurica Leljak\RiderProjects\Codely\docker\executors\python.sh:/python_executor"^
     -v "C:\Users\Jurica Leljak\RiderProjects\Codely\docker\executors\js.sh:/js_executor"^
     -v "C:\Users\Jurica Leljak\RiderProjects\Codely\docker\executors\cpp.sh:/cpp_executor"^
+    -v "C:\Users\Jurica Leljak\RiderProjects\Codely\docker\executors\java.sh:/java_executor"^
     rce runuser^
         -l runner -c "%executor% /%file% %params% 2>&1"
 

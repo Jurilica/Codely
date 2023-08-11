@@ -25,6 +25,7 @@ public sealed class CodeExecutionService : ICodeExecutionService
             ProgrammingLanguage.Python => ".py",
             ProgrammingLanguage.JavaScript => ".js",
             ProgrammingLanguage.Cpp => ".cpp",
+            ProgrammingLanguage.Java => ".java",
             _ => throw new InvalidEnumArgumentException()
         };
         

@@ -5,6 +5,7 @@ RUN apt-get -y install bash-completion
 RUN apt-get -y install build-essential
 RUN apt-get -y install python3
 RUN apt-get -y install nodejs
+RUN apt-get -y install openjdk-17-jdk
 
 RUN useradd -m runner
 

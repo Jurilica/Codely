@@ -7,5 +7,5 @@ public enum ProgrammingLanguage
     Cpp = 3,
     Python = 4,
     JavaScript = 5,
-    TypeScript = 6
+    Java = 6
 }
