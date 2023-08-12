@@ -52,7 +52,7 @@ public sealed class ExecuteTestCasesCommand : IRequestHandler<ExecuteTestCasesRe
         var testCaseOutputs = resultWithDelimiter.Split(Delimiter);
 
         var submissionTestCases = new List<SubmissionTestCase>();
-        for (var i = 0; i < testCaseOutputs.Length; i++)
+        for (var i = 0; i < submissionData.TestCases.Count; i++)
         {
             var testCaseOutput = testCaseOutputs[i];
             var testCase = submissionData.TestCases[i];

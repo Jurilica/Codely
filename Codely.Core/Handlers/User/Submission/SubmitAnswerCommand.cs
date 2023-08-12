@@ -1,10 +1,8 @@
 ﻿using Codely.Core.Data;
 using Codely.Core.Helpers;
 using Codely.Core.Services;
-using Codely.Core.Types;
 using Codely.Core.Types.Enums;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Codely.Core.Handlers.User.Submission;
 
