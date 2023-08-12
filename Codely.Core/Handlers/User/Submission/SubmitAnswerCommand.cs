@@ -38,7 +38,10 @@ public sealed class SubmitAnswerCommand : IRequestHandler<SubmitAnswerRequest, S
 
         _testCaseJobs.ExecuteTestCases(submission.Id);
         
-        return new SubmitAnswerResponse();
+        return new SubmitAnswerResponse
+        {
+            SubmissionId = submission.Id
+        };
     }
 }
 
@@ -53,4 +56,5 @@ public sealed class SubmitAnswerRequest : IRequest<SubmitAnswerResponse>
 
 public sealed class SubmitAnswerResponse
 {
+    public required int SubmissionId { get; set; }
 }
