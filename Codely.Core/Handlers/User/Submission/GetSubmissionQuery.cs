@@ -35,6 +35,7 @@ public sealed class GetSubmissionQuery : IRequestHandler<GetSubmissionsRequest,G
                         .Where(y => y.SubmissionTestCaseStatus == SubmissionTestCaseStatus.CorrectAnswer)
                         .Count()
                 })
+            .OrderByDescending(x => x.DateTime)
             .ToListAsync(cancellationToken);
 
         return new GetSubmissionsResponse
