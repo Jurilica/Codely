@@ -30,7 +30,7 @@ public sealed class GetSubmissionQuery : IRequestHandler<GetSubmissionsRequest,G
                     Answer = x.Answer,
                     ProgrammingLanguage = x.ProgrammingLanguage,
                     ProblemSubmissionStatus = x.SubmissionStatus.ToProblemSubmissionStatus(),
-                    NumberOfTestCases = x.SubmissionTestCases.Count,
+                    NumberOfTestCases = x.Problem.TestCases.Count(),
                     NumberOfPassedTestCases = x.SubmissionTestCases
                         .Where(y => y.SubmissionTestCaseStatus == SubmissionTestCaseStatus.CorrectAnswer)
                         .Count()
