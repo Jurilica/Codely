@@ -24,7 +24,7 @@ public sealed class GetSubmissionQuery : IRequestHandler<GetSubmissionsRequest,G
             .Where(x => x.ProblemId == request.ProblemId)
             .Where(x => x.UserId == _currentUserService.Id)
             .Select(x =>
-                new SubmissionData
+                new GetSubmissionData
                 {
                     DateTime = x.Created,
                     Answer = x.Answer,
@@ -51,10 +51,10 @@ public sealed class GetSubmissionsRequest : IRequest<GetSubmissionsResponse>
 
 public sealed class GetSubmissionsResponse
 {
-    public List<SubmissionData> Submissions { get; init; } = new();
+    public List<GetSubmissionData> Submissions { get; init; } = new();
 }
 
-public sealed class SubmissionData
+public sealed class GetSubmissionData
 {
     public required DateTime DateTime { get; init; }
 
