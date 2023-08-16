@@ -36,6 +36,7 @@ public sealed class CreateProblemCommand : IRequestHandler<CreateProblemRequest,
         {
             Title = request.Title,
             Description = request.Description,
+            Difficulty = request.Difficulty,
             Status = ProblemStatus.Unpublished
         };
 
@@ -54,6 +55,8 @@ public sealed class CreateProblemRequest : IRequest<CreateProblemResponse>
     public required string Title { get; init; }
 
     public required string Description { get; init; } 
+    
+    public required ProblemDifficulty Difficulty { get; init; }
 }
 
 public sealed class CreateProblemResponse

@@ -41,7 +41,7 @@ public sealed class GetProblemsQuery : IRequestHandler<GetProblemsRequest, GetPr
                 {
                     x.Id,
                     x.Title,
-                    x.Description
+                    x.Difficulty
                 })
             .ToListAsync(cancellationToken);
         
@@ -51,6 +51,7 @@ public sealed class GetProblemsQuery : IRequestHandler<GetProblemsRequest, GetPr
                 {
                     Id = x.Id,
                     Title = x.Title,
+                    Difficulty = x.Difficulty,
                     ProblemSubmissionStatus = submissions
                         .Where(y => y.ProblemId == x.Id)
                         .Select(y => y.SubmissionStatus)
@@ -80,6 +81,8 @@ public sealed class GetProblemsData
     public required int Id { get; init; }
 
     public  required string Title { get; init; }
+    
+    public required ProblemDifficulty Difficulty { get; init; }
 
     public required ProblemSubmissionStatus ProblemSubmissionStatus { get; init; }
 }

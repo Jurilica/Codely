@@ -1,6 +1,7 @@
 ﻿using Codely.Core.Data;
 using Codely.Core.Helpers;
 using Codely.Core.Types;
+using Codely.Core.Types.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,6 @@ public sealed class UpdateProblemCommand : IRequestHandler<UpdateProblemRequest,
             .IsEmpty(request.Title, "Title can't be empty")
             .IsEmpty(request.Description, "Description can't be empty");
         
-        
         var problemAlreadyExists = await _context.Problems
             .Where(x => x.Title.ToLower() == request.Title.ToLower())
             .Where(x => x.Id != request.ProblemId)
@@ -38,6 +38,7 @@ public sealed class UpdateProblemCommand : IRequestHandler<UpdateProblemRequest,
 
         problem.Title = request.Title;
         problem.Description = request.Description;
+        problem.Difficulty = request.Difficulty;
         
         await _context.SaveChangesAsync(cancellationToken);
 
@@ -52,6 +53,8 @@ public sealed class UpdateProblemRequest : IRequest<UpdateProblemResponse>
     public required string Title { get; init; }
 
     public required string Description { get; init; }
+    
+    public required ProblemDifficulty Difficulty { get; init; }
 }
 
 public sealed class UpdateProblemResponse

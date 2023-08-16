@@ -26,6 +26,7 @@ public sealed class GetProblemQuery : IRequestHandler<GetProblemRequest, GetProb
                     Title = x.Title,
                     Description = x.Description,
                     ProblemStatus = x.Status,
+                    Difficulty = x.Difficulty,
                     Examples = x.Examples
                         .Select(y =>
                             new ExampleData
@@ -79,6 +80,8 @@ public sealed class GetProblemData
     public required string Title { get; init; }
 
     public required string Description { get; init; }
+    
+    public required ProblemDifficulty Difficulty { get; init; }
     
     public required ProblemStatus ProblemStatus { get; init; }
 

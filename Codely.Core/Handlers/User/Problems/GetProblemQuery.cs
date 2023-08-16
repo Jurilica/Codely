@@ -37,6 +37,7 @@ public sealed class GetProblemQuery : IRequestHandler<GetProblemRequest, GetProb
                     Id = x.Id,
                     Title = x.Title,
                     Description = x.Description,
+                    Difficulty = x.Difficulty,
                     ProblemSubmissionStatus = lastSubmissionStatus.ToProblemSubmissionStatus(),
                     Examples = x.Examples
                         .Select(y =>
@@ -79,6 +80,8 @@ public sealed class GetProblemData
     public required string Title { get; init; }
     
     public required string Description { get; init; }
+    
+    public required ProblemDifficulty Difficulty { get; init; }
 
     public required ProblemSubmissionStatus ProblemSubmissionStatus { get; init; }
 

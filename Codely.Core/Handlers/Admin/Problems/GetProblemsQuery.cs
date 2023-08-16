@@ -23,6 +23,7 @@ public sealed class GetProblemsQuery : IRequestHandler<GetProblemsRequest, GetPr
                     Id = x.Id,
                     Title = x.Title,
                     Description = x.Description,
+                    Difficulty = x.Difficulty,
                     ProblemStatus = x.Status
                 })
             .ToListAsync(cancellationToken);
@@ -51,6 +52,8 @@ public sealed class GetProblemsData
     
     public required string Description { get; init; }
     
+    public required ProblemDifficulty Difficulty { get; init; }
+
     public required ProblemStatus ProblemStatus { get; init; }
 }
 

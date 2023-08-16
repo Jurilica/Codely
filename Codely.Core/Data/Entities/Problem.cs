@@ -10,6 +10,8 @@ public sealed class Problem : BaseEntity
     public required string Description { get; set; } = string.Empty;
 
     public required ProblemStatus Status { get; set; }
+    
+    public required ProblemDifficulty Difficulty { get; set; }
 
     public List<Example> Examples { get; init; } = new();
 
