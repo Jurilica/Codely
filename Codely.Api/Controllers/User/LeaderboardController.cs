@@ -12,7 +12,7 @@ namespace Codely.Api.Controllers.User;
 [Route("user/leaderboard")]
 [ApiController]
 [ApiExplorerSettings(GroupName = SwaggerConstants.User)]
-// [RoleAuthorize(Role.User)]
+[RoleAuthorize(Role.User)]
 public class LeaderboardController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -23,7 +23,6 @@ public class LeaderboardController : ControllerBase
     }
     
     [HttpGet]
-    [AllowAnonymous]
     public async Task<GetLeaderboardResponse> GetSubmissions()
     {
         return await _mediator.Send(new GetLeaderboardRequest());
