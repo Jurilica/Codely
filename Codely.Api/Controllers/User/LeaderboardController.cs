@@ -1,10 +1,8 @@
 ﻿using Codely.Api.Attributes;
 using Codely.Api.Constants;
 using Codely.Core.Handlers.User.Leaderboard;
-using Codely.Core.Handlers.User.Submission;
 using Codely.Core.Types.Enums;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Codely.Api.Controllers.User;
