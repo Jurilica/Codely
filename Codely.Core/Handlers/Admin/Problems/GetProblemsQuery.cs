@@ -26,6 +26,7 @@ public sealed class GetProblemsQuery : IRequestHandler<GetProblemsRequest, GetPr
                     Difficulty = x.Difficulty,
                     ProblemStatus = x.Status
                 })
+            .OrderBy(x => x.Id)
             .ToListAsync(cancellationToken);
 
         return new GetProblemsResponse
