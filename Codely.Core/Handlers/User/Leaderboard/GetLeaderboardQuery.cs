@@ -66,6 +66,29 @@ public sealed class GetLeaderboardQuery : IRequestHandler<GetLeaderboardRequest,
                 })
             .ToList();
 
+        var fetchedUsernames = leaderboardData
+            .Select(x => x.Username)
+            .ToList();
+
+        var missingUsersLeaderboardData = await _context.Users
+            .Where(x => !fetchedUsernames.Contains(x.Username))
+            .Select(x =>
+                new LeaderboardData
+                {
+                    Username = x.Username,
+                    EasyProblemsSolved = 0,
+                    HardProblemsSolved = 0,
+                    MediumProblemsSolved = 0,
+                    Points = 0
+                })
+            .ToListAsync(cancellationToken);
+        
+        leaderboardData.AddRange(missingUsersLeaderboardData);
+
+        leaderboardData = leaderboardData
+            .OrderByDescending(x => x.Points)
+            .ToList();
+
         return new GetLeaderboardResponse
         {
             Leaderboard = leaderboardData
