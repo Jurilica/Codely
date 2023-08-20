@@ -56,7 +56,7 @@ public sealed class GetLeaderboardQuery : IRequestHandler<GetLeaderboardRequest,
                         .Count()
                 })
             .Select(x => 
-                new GetLeaderboardData
+                new LeaderboardData
                 {
                     Username = x.Username,
                     EasyProblemsSolved = x.EasyProblemsSolved,
@@ -71,9 +71,10 @@ public sealed class GetLeaderboardQuery : IRequestHandler<GetLeaderboardRequest,
             .ToList();
 
         var missingUsersLeaderboardData = await _context.Users
+            .Where(x => x.Role == Role.User) 
             .Where(x => !fetchedUsernames.Contains(x.Username))
             .Select(x =>
-                new GetLeaderboardData
+                new LeaderboardData
                 {
                     Username = x.Username,
                     EasyProblemsSolved = 0,
@@ -85,13 +86,24 @@ public sealed class GetLeaderboardQuery : IRequestHandler<GetLeaderboardRequest,
         
         leaderboardData.AddRange(missingUsersLeaderboardData);
 
-        leaderboardData = leaderboardData
+        var position = 1;
+        var getLeaderboardData = leaderboardData
             .OrderByDescending(x => x.Points)
+            .Select(x =>
+                new GetLeaderboardData
+                {
+                    Position = position++,
+                    Username = x.Username,
+                    EasyProblemsSolved = x.EasyProblemsSolved,
+                    MediumProblemsSolved = x.MediumProblemsSolved,
+                    HardProblemsSolved = x.HardProblemsSolved,
+                    Points = x.Points
+                })
             .ToList();
 
         return new GetLeaderboardResponse
         {
-            Leaderboard = leaderboardData
+            Leaderboard = getLeaderboardData
         };
     }
 }
@@ -106,7 +118,12 @@ public sealed class GetLeaderboardResponse
     public required List<GetLeaderboardData> Leaderboard { get; init; }
 }
 
-public sealed class GetLeaderboardData
+public sealed class GetLeaderboardData : LeaderboardData
+{
+    public required int Position { get; init; }
+}
+
+public class LeaderboardData
 {
     public required string Username { get; init; }
     
