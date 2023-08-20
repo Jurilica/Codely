@@ -6,7 +6,7 @@ INPUT_ARRAY=()
 function processInput()
 {
     local inputs=$1
-    local inpustWithLineEndigs="${inputs//\n/\\n}"
+    local inpustWithLineEndigs="${inputs//\\n/$'\n'}"
 
     local inputsString=$inpustWithLineEndigs$DELIMITER
 
