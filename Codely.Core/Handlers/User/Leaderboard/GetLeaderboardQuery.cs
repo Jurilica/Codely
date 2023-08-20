@@ -56,7 +56,7 @@ public sealed class GetLeaderboardQuery : IRequestHandler<GetLeaderboardRequest,
                         .Count()
                 })
             .Select(x => 
-                new LeaderboardData
+                new GetLeaderboardData
                 {
                     Username = x.Username,
                     EasyProblemsSolved = x.EasyProblemsSolved,
@@ -73,7 +73,7 @@ public sealed class GetLeaderboardQuery : IRequestHandler<GetLeaderboardRequest,
         var missingUsersLeaderboardData = await _context.Users
             .Where(x => !fetchedUsernames.Contains(x.Username))
             .Select(x =>
-                new LeaderboardData
+                new GetLeaderboardData
                 {
                     Username = x.Username,
                     EasyProblemsSolved = 0,
@@ -103,10 +103,10 @@ public sealed class GetLeaderboardRequest : IRequest<GetLeaderboardResponse>
 
 public sealed class GetLeaderboardResponse
 {
-    public required List<LeaderboardData> Leaderboard { get; init; }
+    public required List<GetLeaderboardData> Leaderboard { get; init; }
 }
 
-public sealed class LeaderboardData
+public sealed class GetLeaderboardData
 {
     public required string Username { get; init; }
     
