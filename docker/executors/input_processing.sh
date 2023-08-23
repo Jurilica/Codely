@@ -6,9 +6,9 @@ INPUT_ARRAY=()
 function processInput()
 {
     local inputs=$1
-    local inpustWithLineEndigs="${inputs//\\n/$'\n'}"
+    local inputsWithLineEndings="${inputs//%n/\\n}"
 
-    local inputsString=$inpustWithLineEndigs$DELIMITER
+    local inputsString=$inputsWithLineEndings$DELIMITER
 
     INPUT_ARRAY=()
     while [[ $inputsString ]];
