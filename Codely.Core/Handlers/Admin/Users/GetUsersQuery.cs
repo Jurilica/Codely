@@ -27,6 +27,7 @@ public sealed class GetUsersQuery : IRequestHandler<GetUsersRequest, GetUsersRes
                     RegistrationDate = x.Created,
                     UserStatus = x.UserStatus
                 })
+            .OrderBy(x => x.RegistrationDate)
             .ToListAsync(cancellationToken);
 
         return new GetUsersResponse
