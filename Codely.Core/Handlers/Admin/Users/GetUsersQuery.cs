@@ -18,7 +18,7 @@ public sealed class GetUsersQuery : IRequestHandler<GetUsersRequest, GetUsersRes
     {
         var users = await _context.Users
             .AsNoTracking()
-            .Where(x => x.Role == Role.Admin)
+            .Where(x => x.Role == Role.User)
             .Select(x =>
                 new GetUsersData
                 {
