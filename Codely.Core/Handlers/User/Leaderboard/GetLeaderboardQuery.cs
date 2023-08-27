@@ -71,6 +71,8 @@ public sealed class GetLeaderboardQuery : IRequestHandler<GetLeaderboardRequest,
             .ToList();
 
         var missingUsersLeaderboardData = await _context.Users
+            .AsNoTracking()
+            .Where(x => x.UserStatus == UserStatus.Active)
             .Where(x => x.Role == Role.User) 
             .Where(x => !fetchedUsernames.Contains(x.Username))
             .Select(x =>

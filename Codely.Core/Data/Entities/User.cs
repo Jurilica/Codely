@@ -12,4 +12,6 @@ public sealed class User : BaseEntity
     public required string PasswordHash { get; set; }
 
     public required Role Role { get; set; }
+    
+    public required UserStatus UserStatus { get; set; }
 }

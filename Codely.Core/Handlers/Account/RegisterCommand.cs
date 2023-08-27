@@ -49,7 +49,8 @@ public sealed class RegisterCommand : IRequestHandler<RegisterRequest, RegisterR
             Email = request.Email,
             Username = request.Username,
             PasswordHash = PasswordHasher.Hash(request.Password),
-            Role = Role.User
+            Role = Role.User,
+            UserStatus = UserStatus.Active
         };
 
         _context.Users.Add(user);

@@ -2,6 +2,7 @@
 using Codely.Core.Helpers;
 using Codely.Core.Services;
 using Codely.Core.Types;
+using Codely.Core.Types.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +34,11 @@ public sealed class LoginCommand : IRequestHandler<LoginRequest, LoginResponse>
         if (!isPasswordValid)
         {
             throw new CodelyException("Wrong username or password");
+        }
+
+        if (user?.UserStatus == UserStatus.Banned)
+        {
+            throw new CodelyException("Your account is banned");
         }
 
         var refreshToken = _jwtTokenProvider.CreateRefreshToken(user!.Id);

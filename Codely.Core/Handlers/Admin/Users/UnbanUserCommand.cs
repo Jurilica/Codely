@@ -6,16 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Codely.Core.Handlers.Admin.Users;
 
-public sealed class BanUserCommand : IRequestHandler<BanUserRequest, BanUserResponse>
+public sealed class UnbanUserCommand : IRequestHandler<UnbanUserRequest, UnbanUserResponse>
 {
     private readonly CodelyContext _context;
 
-    public BanUserCommand(CodelyContext context)
+    public UnbanUserCommand(CodelyContext context)
     {
         _context = context;
     }
     
-    public async Task<BanUserResponse> Handle(BanUserRequest request, CancellationToken cancellationToken)
+    public async Task<UnbanUserResponse> Handle(UnbanUserRequest request, CancellationToken cancellationToken)
     {
         var user = await _context.Users
             .Where(x => x.Username == request.Username)
@@ -26,18 +26,18 @@ public sealed class BanUserCommand : IRequestHandler<BanUserRequest, BanUserResp
             throw new CodelyException("User not found");
         }
 
-        user.UserStatus = UserStatus.Banned;
+        user.UserStatus = UserStatus.Active;
         await _context.SaveChangesAsync(cancellationToken);
-        
-        return new BanUserResponse();
+
+        return new UnbanUserResponse();
     }
 }
 
-public sealed class BanUserRequest : IRequest<BanUserResponse>
+public sealed class UnbanUserRequest : IRequest<UnbanUserResponse>
 {
     public required string Username { get; init;}
 }
 
-public sealed class BanUserResponse
+public sealed class UnbanUserResponse
 {
 }
