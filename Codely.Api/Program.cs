@@ -18,7 +18,6 @@ builder.Services.AddTokenAuthConfiguration(builder.Configuration);
 builder.Services.AddUserClaimsResolver(builder.Configuration);
 builder.Services.AddCoreServices(builder.Configuration);
 builder.Services.AddHangfire(builder.Configuration);
-builder.Services.AddHangfireServer();
 
 var app = builder.Build();
 
