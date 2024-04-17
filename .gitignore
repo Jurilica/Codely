@@ -50,5 +50,4 @@ out/
 # Editor-based Rest Client
 .idea/httpRequests
 /.vs/
-/AurServices.sln.DotSettings.user
 .editorconfig
